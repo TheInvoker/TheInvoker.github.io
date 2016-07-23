@@ -1,0 +1,129 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+body {
+	overflow-x: hidden;
+	overflow-y: hidden;
+	display:flex;
+	flex-flow:column;
+	font-family: Open Sans;
+	background-color:white;
+}
+
+
+.shade {
+	background-color:black;
+	opacity:0.75;
+}
+.shadow {
+	/*box-shadow: 0px 0px 7px #000000;*/
+}
+
+
+
+
+.menu {
+	text-align:right;
+}
+.menu .menu-item {
+	color:white;
+	padding:1em;
+	cursor:pointer;
+	display:inline-block;
+	text-align:center;
+	transition-property: background-color,color;
+	transition-duration: 0.3s;
+}
+.menu .menu-item:hover {
+	background-color:#68e4ff;
+	color:black;
+}
+.menu .menu-item.selected {
+	background-color:white;
+	color:black;
+}
+.menu .menu-item.selected:hover {
+	background-color:white;
+	color:black;
+}
+.menu .menu-collapse-button-container {
+	height:3em;
+	display:none;
+	text-align:right;
+}
+.menu .menu-collapse-button {
+	width:3em;
+	height:3em;
+	background-image:url('../images/menu.svg');
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-position:center center;
+	cursor:pointer;
+	display:inline-block;
+	transition-property: background-color;
+	transition-duration: 0.3s;
+}
+.menu .menu-collapse-button:hover {
+	background-color:#68e4ff;
+}
+@media screen and (max-width: 480px) {
+	.menu .menu-header {
+		max-height:0px;
+		transition: max-height 1s ease-out;
+		overflow-y:hidden;
+	}
+	.menu.open .menu-header {
+		max-height:1000px;
+		transition: max-height 1s ease-in;
+	}
+	.menu .menu-item {
+		display:block;
+	}
+	.menu .menu-collapse-button-container {
+		display:block;
+	}
+}
+
+
+
+
+
+.content {
+	overflow-y: auto;
+	height:100%;
+	flex:0 1 auto;
+	display:flex;
+	flex-flow:column;
+}
+.inner_content {
+	flex:1 0 auto;
+}
+.section {
+	
+}
+
+
+
+
+
+#about {
+	text-align:center;
+}
+#about img {
+	border-radius:50%;
+	border:1px solid gray;
+}
+
+
+
+
+
+
+
+
+.footer {
+	height:200px;
+	flex:0 0 auto;
+}
