@@ -14,13 +14,17 @@ body {
 
 
 .shade {
-	background-color:black;
-	opacity:0.75;
+	background-color:rgba(0, 0, 0, 0.75);
 }
 .shadow {
 	/*box-shadow: 0px 0px 7px #000000;*/
 }
-
+.intro {
+	font-size:3em;
+}
+.copyright {
+	color:white;
+}
 
 
 
@@ -101,7 +105,7 @@ body {
 	flex:1 0 auto;
 }
 .section {
-	
+	padding:1em;
 }
 
 
@@ -124,6 +128,13 @@ body {
 
 
 .footer {
-	height:200px;
+	/*height:200px;*/
+	padding:1em;
 	flex:0 0 auto;
+	text-align:center;
+}
+.footer img {
+	width:3em;
+	height:3em;
+	margin:1em;
 }
