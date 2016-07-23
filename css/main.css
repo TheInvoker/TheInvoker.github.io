@@ -75,12 +75,12 @@ body {
 @media screen and (max-width: 480px) {
 	.menu .menu-header {
 		max-height:0px;
-		transition: max-height 1s ease-out;
+		transition: max-height 1s linear;
 		overflow-y:hidden;
 	}
 	.menu.open .menu-header {
 		max-height:1000px;
-		transition: max-height 1s ease-out;
+		transition: max-height 1s linear;
 	}
 	.menu .menu-item {
 		display:block;
