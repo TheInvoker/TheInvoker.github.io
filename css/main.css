@@ -22,6 +22,12 @@ body {
 .intro {
 	font-size:3em;
 }
+.header {
+	font-size:2em;
+}
+.left {
+	text-align:left;
+}
 .copyright {
 	color:white;
 }
@@ -77,6 +83,7 @@ body {
 		max-height:0px;
 		transition: max-height 1s linear;
 		overflow-y:hidden;
+		border-bottom:1px solid rgba(113, 113, 113, 0.8);
 	}
 	.menu.open .menu-header {
 		max-height:1000px;

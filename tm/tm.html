@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<title>
+			Ryan's TM
+		</title>
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="../js/TM.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/tm.css"/>
+	</head>
+	<body>
+	
+		<table>
+			<tr>
+				<td valign="top">
+					<span>[state],</span><span>[new state],</span><span>[char(s)],</span><span>[new char],</span><span>[direction]</span>
+					<br/>
+					<textarea id="Q" rows="20" cols="50" label="turing machine code" class="tm-input-box"></textarea>
+					<br/>
+					<span class="note">*First row is the start state</span>
+					<br/>
+					<span class="note">*Blank symbol is ⊔</span>
+					<br/>
+					<span class="note">*Maximum steps is 1500</span>
+					<br/>
+					<span class="note">*A transition follows the regular expression ^(\d+|A|R),(\d+|A|R),[^,]+,[^,]?,(R|L)$</span>
+					
+					<table>
+						<tr>
+							<td>Input: <input id="input_text" type='text' size='30' label="turing machine input"/></td>
+							<td><button type="button" id="cmp_button">Test</button></td>
+							<td><button type="button" id="clr_button">Clear Result</button></td>
+						</tr>
+					</table>
+					
+					<br/>
+					
+					<table id="animation">
+					</table>
+					<table id="animation_controls" style="display:none;">
+						<tr>
+							<td><button type="button" id="stp_button">Step</button></td>
+							<td><button type="button" id="ply_button">Play/Pause</button></td>
+							<td><button type="button" id="rst_button">Reset</button></td>
+						</tr>
+					</table>
+					
+					<br/>
+					<b>Sample TM</b>:<br/>
+					M =
+					<div class="tm-input-box">
+						0,1,1,A,R<br/>
+						0,4,B,,R<br/>
+						1,1,1B,,R<br/>
+						1,2,0,B,R<br/>
+						2,2,0C,,R<br/>
+						2,3,1,C,L<br/>
+						3,3,CB01,,L<br/>
+						3,0,A,,R<br/>
+						4,4,BC,,R<br/>
+						4,A,⊔,,R<br/>
+					</div>
+					
+					<br/>
+					
+					L(M) = {1<sup>n</sup>0<sup>n</sup>1<sup>n</sup> | n ∈ N<sup>+</sup>}<br/>
+					Sample Input: 111000111
+					
+					<br/>
+					<br/>
+					
+					<a alt="More examples" href="TM-Samples.php" target="_blank">See more...</a>
+				</td>
+				<td valign="top">
+					<table id="result">
+					</table>
+				</td>
+			</tr>
+		</table>
+		
+	</body>
+</html>
