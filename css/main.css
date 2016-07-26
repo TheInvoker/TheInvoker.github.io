@@ -37,6 +37,9 @@ body {
 .group-image {
 	height:200px;
 }
+details img {
+	max-width:80%;
+}
 
 
 
