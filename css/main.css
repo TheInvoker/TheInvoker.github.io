@@ -175,6 +175,16 @@ details img {
     opacity:1;
 }
 
+
+
+details iframe {
+	width:75%;
+}
+
+
+
+
+
 a[data-lightbox] {
 	display:none;
 }
