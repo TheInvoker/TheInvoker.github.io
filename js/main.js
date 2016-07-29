@@ -39,9 +39,8 @@ $(document).ready(function() {
     $(".content").scroll(function() {
 		$("div[data-load]").each(function(i, x) {
 			if (isScrolledIntoView(x)) {
-				$(x).removeAttr("data-load");
-
 				var url = $(x).attr("data-load");
+				$(x).removeAttr("data-load");
 				$.ajax({
 					url : url,
 					type : 'GET',
