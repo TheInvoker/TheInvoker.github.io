@@ -30,7 +30,6 @@ $(document).ready(function() {
 		}
 	}, 150);
 	
-	
     $(".content").scroll(function() {
 		$("div[data-load]").each(function(i, x) {
 			if (isScrolledIntoView(x)) {
