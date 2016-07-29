@@ -13,7 +13,7 @@ $(document).ready(function() {
 		$(this).addClass("selected");
 		return false;
 	});
-	$(".slideshow, .team-slideshow").click(function() {
+	$(".content").on("click", ".slideshow, .team-slideshow", function() {
 		var name = $(this).attr("data-title");
 		$("a[data-title='" + name + "']").eq(0).click();
 		return false;
