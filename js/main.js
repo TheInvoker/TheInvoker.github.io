@@ -30,6 +30,7 @@ $(document).ready(function() {
 		}
 	}, 0);
 	
+	
     $(".content").scroll(function() {
 		$("div[data-load]").each(function(i, x) {
 			if (isScrolledIntoView(x)) {
@@ -48,6 +49,4 @@ $(document).ready(function() {
 			}
 		});
     });
-	
-
 });
