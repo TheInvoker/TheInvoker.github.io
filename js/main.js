@@ -25,4 +25,19 @@ $(document).ready(function() {
 			clearInterval(interval);
 		}
 	}, 0);
+	
+	
+	$("div[data-load]").each(function(i, x) {
+		var url = $(x).attr("data-load");
+		$.ajax({
+			url : url,
+			type : 'GET',
+			success: function(data) {
+				$(x).html(data);
+			},
+			error: function(request, status, error) {
+				alert("error");
+			}
+		});
+	});
 });
