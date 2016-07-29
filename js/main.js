@@ -1,3 +1,13 @@
+function isScrolledIntoView(elem) {
+    var docViewTop = $(".content").scrollTop();
+    var docViewBottom = docViewTop + $(".content").height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+}
+
 $(document).ready(function() {
 	$(".menu .menu-collapse-button").click(function() {
 		$(".menu").toggleClass("open");
@@ -26,18 +36,25 @@ $(document).ready(function() {
 		}
 	}, 0);
 	
-	
-	$("div[data-load]").each(function(i, x) {
-		var url = $(x).attr("data-load");
-		$.ajax({
-			url : url,
-			type : 'GET',
-			success: function(data) {
-				$(x).html(data);
-			},
-			error: function(request, status, error) {
-				alert("error");
+    $(".content").scroll(function() {
+		$("div[data-load]").each(function(i, x) {
+			if (isScrolledIntoView(x)) {
+				$(x).removeAttr("data-load");
+
+				var url = $(x).attr("data-load");
+				$.ajax({
+					url : url,
+					type : 'GET',
+					success: function(data) {
+						$(x).html(data);
+					},
+					error: function(request, status, error) {
+						alert("error");
+					}
+				});
 			}
 		});
-	});
+    });
+	
+
 });
