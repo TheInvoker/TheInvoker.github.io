@@ -164,7 +164,7 @@ details img {
     width: 100%;
 	opacity:0;
 	transition-property: opacity;
-	transition-duration: 0.3s;
+	transition-duration: 1s;
 }
 .image-grid-container .slider .slide img.fadeIn {
     opacity:1;

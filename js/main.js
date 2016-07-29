@@ -28,7 +28,7 @@ $(document).ready(function() {
 		} else {
 			clearInterval(interval);
 		}
-	}, 0);
+	}, 150);
 	
 	
     $(".content").scroll(function() {
@@ -43,7 +43,7 @@ $(document).ready(function() {
 						$(x).html(data);
 					},
 					error: function(request, status, error) {
-						alert("error");
+						//alert("error");
 					}
 				});
 			}
