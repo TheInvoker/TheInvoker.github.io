@@ -151,11 +151,6 @@ details img {
 }
 #about .bio {
 	padding:1em;
-	position:absolute;
-	bottom:0;
-	font-size:1.7vw;
-	color:white;
-	background-color:rgba(0,0,0,0.5);
 }
 .image-grid-container {
 	font-size:0;
