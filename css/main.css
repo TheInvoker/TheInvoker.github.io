@@ -113,6 +113,7 @@ details img {
 
 .content {
 	overflow-y: auto;
+	overflow-x:hidden;
 	height:100%;
 	flex:0 1 auto;
 	display:flex;
