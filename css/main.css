@@ -151,6 +151,21 @@ iframe {
 
 
 /* PORTRAIT */
+/*
+.portrait-grid {
+	width:100%;
+	border-collapse: collapse;
+}
+.portrait-grid tr td {
+	width:20%;
+	padding:0;
+}
+.portrait-grid tr td img {
+	width:100%;
+	display:block;
+}
+*/
+
 .image-grid-container {
 	font-size:0;
 }
@@ -158,14 +173,14 @@ iframe {
     display: flex;
 }
 .image-grid-container .slider .slide {
-
+	flex:auto;
 }
 .image-grid-container .slider .slide img {
     width: 100%;
 	opacity:0;
 	transition-property: opacity;
 	transition-duration: 1s;
-	flex:auto;
+	display:block;
 }
 .image-grid-container .slider .slide img.fadeIn {
     opacity:1;
