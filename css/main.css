@@ -175,8 +175,21 @@ iframe {
 
 
 
-
-
+/* MEMBERS */
+.group-label {
+	margin-bottom:20px;
+	font-weight:bold;
+}
+.members-group a {
+	color:white;
+	font-weight:bold;
+	background-color:orange;
+	padding:5px;
+	margin:5px;
+	text-decoration:none;
+	border-radius:3px;
+	display:inline-block;
+}
 
 
 
