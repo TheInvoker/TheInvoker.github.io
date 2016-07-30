@@ -132,28 +132,33 @@ $(document).ready(function() {
 		}
 	}, 150);
 	
+	scanForNewContent();
     $(".content").scroll(function() {
-		var xObj = $("div[data-load]")
-		if (xObj.length > 0) {
-			var x = (xObj.eq(0))[0];
-			if (isScrolledIntoView(x)) {
-				var url = $(x).attr("data-load");
-				$(x).removeAttr("data-load");
-				$.ajax({
-					url : url,
-					type : 'GET',
-					success: function(data) {
-						$(x).html(data);
-						updateGroups();
-					},
-					error: function(request, status, error) {
-						//alert("error");
-					}
-				});
-			}
-		}
-    }).trigger("scroll");
+		scanForNewContent();
+    });
 });
+
+function scanForNewContent() {
+	var xObj = $("div[data-load]")
+	if (xObj.length > 0) {
+		var x = (xObj.eq(0))[0];
+		if (isScrolledIntoView(x)) {
+			var url = $(x).attr("data-load");
+			$(x).removeAttr("data-load");
+			$.ajax({
+				url : url,
+				type : 'GET',
+				success: function(data) {
+					$(x).html(data);
+					updateGroups();
+				},
+				error: function(request, status, error) {
+					//alert("error");
+				}
+			});
+		}
+	}
+}
 
 function updateGroups() {
 	$("div[data-members]").each(function(i, x) {
