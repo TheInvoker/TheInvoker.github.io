@@ -45,7 +45,7 @@ var MEMBERS = {
 	},
 	'12' : {
 		'name' : 'Victor B.',
-		'link' : null
+		'link' : 'javascript:void(0);'
 	},
 	'13' : {
 		'name' : 'Jason Du',
@@ -137,6 +137,7 @@ $(document).ready(function() {
 					type : 'GET',
 					success: function(data) {
 						$(x).html(data);
+						updateGroups();
 					},
 					error: function(request, status, error) {
 						//alert("error");
@@ -146,3 +147,13 @@ $(document).ready(function() {
 		}
     }).trigger("scroll");
 });
+
+function updateGroups() {
+	$("div[data-members]").each(function(i, x) {
+		var membersList = $(x).attr("data-members").split(",");
+		for(var i=0; i<membersList.length; i+=1) {
+			$(x).append("<a href='" + membersList[i].link + "' target='_blank'>" + membersList[i].name + "</a>");
+		}
+		$(x).removeAttr("data-members");
+	});
+}
