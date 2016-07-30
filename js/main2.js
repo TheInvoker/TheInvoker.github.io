@@ -12,6 +12,7 @@ function loadContent() {
 			url : url,
 			type : 'GET',
 			success: function(data) {
+				$(".loading").remove();
 				$(x).html(data);
 				updateGroups();
 				loadContent();

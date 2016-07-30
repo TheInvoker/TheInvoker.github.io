@@ -173,6 +173,13 @@ iframe {
 
 
 
+/* LOADING */
+.loading {
+	text-align:center;
+	padding-top:2em;
+}
+
+
 /* MEMBERS */
 .group-label {
 	display:inline-block;
