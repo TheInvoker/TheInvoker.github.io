@@ -37,13 +37,15 @@ body {
 details img {
 	max-width:80%;
 }
+iframe {
+	width:100%;
+}
 
 
 
 
 
-
-
+/* TOP MENU */
 .menu {
 	text-align:right;
 }
@@ -129,18 +131,13 @@ details img {
 
 
 
-#projects hr {
-	margin:3em 0;
-}
-#about {
-	text-align:center;
-}
-#about {
+
+
+#portrait {
 	padding:0;
 	position:relative;
 }
-
-#about .intro {
+#portrait .intro {
 	position:absolute;
 	font-size:5vw;
 	color:white;
@@ -151,6 +148,14 @@ details img {
 #about .bio {
 	padding:1em;
 }
+#projects hr {
+	margin:3em 0;
+}
+
+
+
+
+/* PORTRAIT */
 .image-grid-container {
 	font-size:0;
 }
@@ -165,6 +170,7 @@ details img {
 	opacity:0;
 	transition-property: opacity;
 	transition-duration: 1s;
+	flex:auto;
 }
 .image-grid-container .slider .slide img.fadeIn {
     opacity:1;
@@ -172,14 +178,12 @@ details img {
 
 
 
-iframe {
-	width:100%;
-}
 
 
 
 
 
+/* SLIDESHOW */
 a[data-lightbox] {
 	display:none;
 }
@@ -228,7 +232,7 @@ a[data-lightbox] {
 
 
 
-
+/* FOOTER */
 .footer {
 	/*height:200px;*/
 	padding:1em;
