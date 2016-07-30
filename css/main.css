@@ -35,9 +35,6 @@ body {
 .group-image {
 	height:200px;
 }
-details img {
-	max-width:80%;
-}
 iframe {
 	width:100%;
 }
@@ -228,6 +225,7 @@ iframe {
 /* DETAILS */
 .details img {
 	display:block;
+	max-width:100%;
 }
 .details summary {
 	cursor:pointer;
