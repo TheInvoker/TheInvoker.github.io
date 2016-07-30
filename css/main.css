@@ -301,6 +301,8 @@ a[data-lightbox] {
 }
 .app-plutomake {
 	background-image:url('../images/Samsung-Galaxy-S4-Flat-Mockup.png'), url('../images/apps/Plutomake/android.png');
+	background-size:200px 382px, 172.6px;
+	background-position:0 0, 14px 50%;
 }
 .team-slideshow {
 	cursor:pointer;
