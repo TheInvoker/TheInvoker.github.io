@@ -150,7 +150,7 @@ $(document).ready(function() {
 
 function updateGroups() {
 	$("div[data-members]").each(function(i, x) {
-		$(x).html("<div class='group-label'>Members</div>");
+		$(x).html("<div class='group-label'>Members:</div>");
 		var membersList = $(x).attr("data-members").split(",");
 		for(var i=0; i<membersList.length; i+=1) {
 			var member = MEMBERS[membersList[i]];
