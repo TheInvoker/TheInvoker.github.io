@@ -114,6 +114,13 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	
+	$(".content").on("click", ".details summary", function() {
+		$(this).parent().toggleClass("open");
+		$(this).next().toggleClass("open");
+		return false;
+	});
+	
 	var count = 0;
 	var interval = setInterval(function() {
 		var lst = $(".slide img[data-order='" + count + "']");
