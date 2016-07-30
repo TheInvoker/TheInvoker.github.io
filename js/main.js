@@ -62,7 +62,7 @@ var MEMBERS = {
 	'16' : {
 		'name' : 'Lisa Chen',
 		'link' : 'https://ca.linkedin.com/in/lisa-chen-655770a2'
-	}
+	},
 	'17' : {
 		'name' : 'Akshay Nair',
 		'link' : 'https://www.linkedin.com/in/nairakshay'
