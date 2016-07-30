@@ -31,7 +31,9 @@ $(document).ready(function() {
 	}, 150);
 	
     $(".content").scroll(function() {
-		$("div[data-load]").each(function(i, x) {
+		var xObj = $("div[data-load]")
+		if (xObj.length > 0) {
+			var x = (xObj.eq(0))[0];
 			if (isScrolledIntoView(x)) {
 				var url = $(x).attr("data-load");
 				$(x).removeAttr("data-load");
@@ -46,6 +48,6 @@ $(document).ready(function() {
 					}
 				});
 			}
-		});
+		}
     }).trigger("scroll");
 });
