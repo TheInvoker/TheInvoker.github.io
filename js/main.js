@@ -93,10 +93,6 @@ var MEMBERS = {
 	}
 };
 
-function isScrolledIntoView(elem) {
-    return $(elem).offset().top-$(".content").height()-100 <= 0;
-}
-
 $(document).ready(function() {
 	$(".menu .menu-collapse-button").click(function() {
 		$(".menu").toggleClass("open");
@@ -114,7 +110,6 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	
 	$(".content").on("click", ".details summary", function() {
 		$(this).parent().toggleClass("open");
 		$(this).next().toggleClass("open");
@@ -131,43 +126,4 @@ $(document).ready(function() {
 			clearInterval(interval);
 		}
 	}, 150);
-	
-	scanForNewContent();
-    $(".content").scroll(function() {
-		scanForNewContent();
-    });
 });
-
-function scanForNewContent() {
-	var xObj = $("div[data-load]")
-	if (xObj.length > 0) {
-		var x = (xObj.eq(0))[0];
-		if (isScrolledIntoView(x)) {
-			var url = $(x).attr("data-load");
-			$(x).removeAttr("data-load");
-			$.ajax({
-				url : url,
-				type : 'GET',
-				success: function(data) {
-					$(x).html(data);
-					updateGroups();
-				},
-				error: function(request, status, error) {
-					//alert("error");
-				}
-			});
-		}
-	}
-}
-
-function updateGroups() {
-	$("div[data-members]").each(function(i, x) {
-		$(x).html("<div class='group-label'>Members:</div>");
-		var membersList = $(x).attr("data-members").split(",");
-		for(var i=0; i<membersList.length; i+=1) {
-			var member = MEMBERS[membersList[i]];
-			$(x).append("<a href='" + member.link + "' target='_blank' title=\"" + member.name + "\">" + member.name + "</a>");
-		}
-		$(x).removeAttr("data-members");
-	});
-}
