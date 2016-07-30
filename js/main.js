@@ -152,7 +152,8 @@ function updateGroups() {
 	$("div[data-members]").each(function(i, x) {
 		var membersList = $(x).attr("data-members").split(",");
 		for(var i=0; i<membersList.length; i+=1) {
-			$(x).append("<a href='" + membersList[i].link + "' target='_blank'>" + membersList[i].name + "</a>");
+			var member = MEMBERS[membersList[i]];
+			$(x).append("<a href='" + member.link + "' target='_blank'>" + member.name + "</a>");
 		}
 		$(x).removeAttr("data-members");
 	});
