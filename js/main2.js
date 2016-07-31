@@ -11,6 +11,7 @@ function loadContent() {
 		$.ajax({
 			url : url,
 			type : 'GET',
+			cache: false,
 			success: function(data) {
 				$(".loading").remove();
 				$(x).html(data);
