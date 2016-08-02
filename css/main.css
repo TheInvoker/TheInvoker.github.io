@@ -92,13 +92,13 @@ iframe {
 @media screen and (max-width: 480px) {
 	.menu .menu-header {
 		max-height:0px;
-		transition: max-height 1s linear;
+		transition: max-height 0.2s linear;
 		overflow-y:hidden;
 		border-bottom:1px solid rgba(113, 113, 113, 1);
 	}
 	.menu.open .menu-header {
-		max-height:1000px;
-		transition: max-height 1s linear;
+		max-height:300px;
+		transition: max-height 0.2s linear;
 	}
 	.menu .menu-item {
 		display:block;
