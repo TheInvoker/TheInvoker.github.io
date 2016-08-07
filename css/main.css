@@ -252,7 +252,6 @@ iframe {
 }
 .details summary {
 	cursor:pointer;
-	background-color:#ddd;
 	border-radius:10px 10px 0 0;
 	display:inline-block;
 	padding:5px 5px 0 5px;
