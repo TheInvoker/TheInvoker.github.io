@@ -97,7 +97,7 @@ var MEMBERS = {
 	},
 	'25' : {
 		'name' : 'Ali Muntasir',
-		'link' : 'https://www.linkedin.com/in/syed-ali-3840b647' 
+		'link' : 'https://www.linkedin.com/in/ali-muntasir-3840b647' 
 	}
 };
 
