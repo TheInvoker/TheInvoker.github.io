@@ -94,6 +94,10 @@ var MEMBERS = {
 	'24' : {
 		'name' : 'Tiffany Rodrigues',
 		'link' : 'https://www.linkedin.com/in/tiffany-rodrigues-b254aba4'
+	},
+	'25' : {
+		'name' : 'Ali Muntasir',
+		'link' : 'http://www.google.ca' 
 	}
 };
 
