@@ -97,7 +97,7 @@ var MEMBERS = {
 	},
 	'25' : {
 		'name' : 'Ali Muntasir',
-		'link' : 'http://www.google.ca' 
+		'link' : 'https://www.linkedin.com/in/syed-ali-3840b647' 
 	}
 };
 
