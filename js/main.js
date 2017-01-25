@@ -90,6 +90,10 @@ var MEMBERS = {
 	'23' : {
 		'name' : 'Jeffrey Huang',
 		'link' : 'https://www.linkedin.com/in/jeffreyphuang'
+	},
+	'24' : {
+		'name' : 'Tiffany Rodrigues',
+		'link' : 'https://www.linkedin.com/in/tiffany-rodrigues-b254aba4'
 	}
 };
 
