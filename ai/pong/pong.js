@@ -123,13 +123,15 @@ function moveBall() {
 		if (a < 0) a = 360 + a;
 		
 		if (a > 90 && a < 270) {
-			ball.angle = 360 - ball.angle;
+			var r = ((Math.random()*2)-1) * 3;
+			ball.angle = 360 - ball.angle + r;
 		} else if (d1 <= ball.radius*1.5 || d2 <= ball.radius*1.5) {
 			var r = ((Math.random()*2)-1) * 5;
 			ball.angle = a + r;
 			ball.speed = ball.speed2;
 		} else {
-			ball.angle = 180 - ball.angle;
+			var r = ((Math.random()*2)-1) * 3;
+			ball.angle = 180 - ball.angle + r;
 			if (ball.angle < 0) ball.angle = 360+ball.angle;
 		}
 		
@@ -146,13 +148,15 @@ function moveBall() {
 		if (a < 0) a = 360 + a;
 		
 		if (a < 90 || a > 270) {
-			ball.angle = 360 - ball.angle;
+			var r = ((Math.random()*2)-1) * 3;
+			ball.angle = 360 - ball.angle + r;
 		} else if (d1 <= ball.radius*1.5 || d2 <= ball.radius*1.5) {	
 			var r = ((Math.random()*2)-1) * 5;
 			ball.angle = a + r;
 			ball.speed = ball.speed2;
 		} else {
-			ball.angle = 180 - ball.angle;
+			var r = ((Math.random()*2)-1) * 3;
+			ball.angle = 180 - ball.angle + r;
 			if (ball.angle < 0) ball.angle = 360+ball.angle;
 		}
 		
