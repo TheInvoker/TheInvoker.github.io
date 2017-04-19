@@ -68,8 +68,20 @@ function drawGame() {
 	// draw score
 	ctx.fillStyle = "white";
 	ctx.font = "20px Arial";
-	ctx.fillText(scores[0] + " - " + scores[1] + " (" + (100 * (scores[1]/scores[0])).toFixed(2) + ")",game_board.width/2 - 30, 40);
-	ctx.fillText(pastSeconds + "sec",game_board.width/2 - 30, 60);
+	ctx.fillText("Started " + formatDate(startTime),game_board.width/2 - 70, 40);
+	ctx.fillText(scores[0] + " - " + scores[1] + " (" + (100 * (scores[1]/scores[0])).toFixed(2) + ")",game_board.width/2 - 70, 60);
+	ctx.fillText(pastSeconds + "sec",game_board.width/2 - 70, 80);
+}
+
+function formatDate(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
 }
 
 function checkForWin() {
