@@ -231,7 +231,7 @@ document.body.appendChild(canvas);
 
 // create an environment object
 var env = {};
-env.getNumStates = function() { return 4; }
+env.getNumStates = function() { return 3; }
 env.getMaxNumActions = function() { return 2; }
 
 // create the DQN agent
@@ -253,7 +253,7 @@ function gameLoop() {
 	if (ball.y < paddles[0].y+paddle.height/2) moveLeftPlayerUp();
 	else moveLeftPlayerDown();
 
-	var action = rightagent.act([paddles[1].x, paddles[1].y, ball.x, ball.y]);
+	var action = rightagent.act([paddles[1].y, ball.x, ball.y]);
 	if (action==0) moveRightPlayerDown();
 	else moveRightPlayerUp();
 	var r2 = getReward(paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle);
