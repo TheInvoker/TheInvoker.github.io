@@ -6,6 +6,8 @@ var map = {38: false,40: false,87: false,83: false};
 var game_board, paddle, paddles, ball; 
 
 function resetBoardData() {
+	var r_angle = Math.random() * 360;
+	
 	game_board = {
 		'width' : main_width,
 		'height' : main_height
@@ -29,8 +31,8 @@ function resetBoardData() {
 		'radius' : 10,
 		'x' : game_board.width/2,
 		'y' : game_board.height/2,
-		'angle' : 0,
-		'o_angle' : 0,
+		'angle' : r_angle,
+		'o_angle' : r_angle,
 		'speed' : 5
 	};
 }
