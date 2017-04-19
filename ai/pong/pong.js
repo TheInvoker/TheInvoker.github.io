@@ -222,10 +222,41 @@ function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, ball
 	//var ys = 1 - ((Math.abs(mypaddley+paddle.height/2 - bally) / game_board.height);
 	//var xs = 1 - ((Math.abs(mypaddlex+paddle.width/2 - ballx) / game_board.width);
 	
-	if (Math.abs(ballx - mypaddlex+paddle.width/2) < paddle.height * 2) {
-            return 1 - (Math.abs(mypaddley+paddle.height/2 - bally) / game_board.height);  
+	//if (Math.abs(ballx - mypaddlex+paddle.width/2) < paddle.height * 2) {
+        //    return 1 - (Math.abs(mypaddley+paddle.height/2 - bally) / game_board.height);  
+	//}
+	//return -1 + (Math.abs(enemypaddley+paddle.height/2 - bally) / game_board.height);	
+	
+	
+	if (mypaddlex > game_board.width/2) {
+	    if (ballangle < 90 || ballangle > 270) {
+		var x = Math.abs(ballx - mypaddlex+paddle.width/2);
+		var hyp = x / Math.cos(ballangle * (Math.PI/180));
+		var nby = bally - Math.sin(ball.angle * (Math.PI/180)) * hyp;
+		if (nby >= 0 && nby <= game_board.height) {
+		    return 1 - (Math.abs(nby - bally) / game_board.height);  
+		} else {
+		    return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);  	
+		}
+	    } else {
+		return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);     
+	    }
+	} else {
+	    if (ballangle > 90 && ballangle < 270) {
+		var x = Math.abs(ballx - mypaddlex+paddle.width/2);
+		var hyp = x / Math.cos(ballangle * (Math.PI/180));
+		var nby = bally - Math.sin(ball.angle * (Math.PI/180)) * hyp;
+		if (nby >= 0 && nby <= game_board.height) {
+		    return 1 - (Math.abs(nby - bally) / game_board.height);  
+		} else {
+		    return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);  	
+		}
+	    } else {
+		return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);     
+	    }
 	}
-	return -1 + (Math.abs(enemypaddley+paddle.height/2 - bally) / game_board.height);	
+	
+	
 }
 
 var canvas = document.createElement('canvas');
