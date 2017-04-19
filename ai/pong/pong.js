@@ -6,7 +6,9 @@ var map = {38: false,40: false,87: false,83: false};
 var game_board, paddle, paddles, ball; 
 
 function resetBoardData() {
-	var r_angle = Math.random() * 360;
+	
+	var items = [45, 135, 225, 315];
+	var r_angle = items[Math.floor(Math.random()*items.length)];
 	
 	game_board = {
 		'width' : main_width,
@@ -33,8 +35,8 @@ function resetBoardData() {
 		'y' : game_board.height/2,
 		'angle' : r_angle,
 		'o_angle' : r_angle,
-		'speed' : 2,
-		'speed2' : 4
+		'speed' : 5,
+		'speed2' : 9
 	};
 }
 
@@ -177,24 +179,42 @@ function collides(rect, circle, collide_inside)
     return side.x*side.x + side.y*side.y  < circle.r*circle.r;
 }
 
+function moveRightPlayerUp() {
+	paddles[1].y = Math.max(paddles[1].y - paddle.speed, 0);
+}
+function moveRightPlayerDown() {
+	paddles[1].y = Math.min(paddles[1].y + paddle.speed, game_board.height - paddle.height);
+}
+function moveLeftPlayerUp() {
+	paddles[0].y = Math.max(paddles[0].y - paddle.speed, 0);
+}
+function moveLeftPlayerDown() {
+	paddles[0].y = Math.min(paddles[0].y + paddle.speed, game_board.height - paddle.height);
+}
+
 function movePaddle() {
     if (map['38']) {
         // up right player - up arrow
-		paddles[1].y = Math.max(paddles[1].y - paddle.speed, 0);
+		moveRightPlayerUp();
     }
     if (map['40']) {
         // down right player - down arrow
-		paddles[1].y = Math.min(paddles[1].y + paddle.speed, game_board.height - paddle.height);
+		moveRightPlayerDown();
     }
     
 	if (map['87']) {
        // up left player - W
-		paddles[0].y = Math.max(paddles[0].y - paddle.speed, 0);
+		moveLeftPlayerUp();
     }
     if (map['83']) {
        // down left player - S
-		paddles[0].y = Math.min(paddles[0].y + paddle.speed, game_board.height - paddle.height);
+		moveLeftPlayerDown();
     }
+}
+
+function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, bally, ballspeed, ballangle) {
+	var d = Math.abs(bally, mypaddley+paddle.height/2);
+	return ((game_board.height - d)/game_board.height)*2 - 1;
 }
 
 var canvas = document.createElement('canvas');
@@ -204,12 +224,42 @@ var ctx = canvas.getContext("2d");
 document.body.appendChild(canvas);
 
 
+
+
+
+// create an environment object
+var env = {};
+env.getNumStates = function() { return 8; }
+env.getMaxNumActions = function() { return 2; }
+
+// create the DQN agent
+var spec = { alpha: 0.01 } // see full options on DQN page
+var leftagent = new RL.DQNAgent(env, spec); 
+var rightagent = new RL.DQNAgent(env, spec); 
+
+
+
+
+
 resetBoardData();
 function gameLoop() {
 	checkForWin();
 	moveBall();
 	movePaddle();
 	drawGame();
+	
+	var action = leftagent.act([paddles[0].x, paddles[0].y, paddles[1].x, paddles[1].y, ball.x, ball.y, ball.speed, ball.angle]);
+	if (action==0) moveLeftPlayerDown();
+	else moveLeftPlayerUp();
+	var r1 = getReward(paddles[0].x, paddles[0].y, paddles[1].x, paddles[1].y, ball.x, ball.y, ball.speed, ball.angle);
+	leftagent.learn(r1);
+
+	var action = rightagent.act([paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle]);
+	if (action==0) moveRightPlayerDown();
+	else moveRightPlayerUp();
+	var r2 = getReward(paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle);
+	rightagent.learn(r2);
+
 	requestAnimationFrame(gameLoop);
 }
 gameLoop();
