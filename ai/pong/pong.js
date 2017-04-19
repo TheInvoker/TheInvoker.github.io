@@ -236,7 +236,7 @@ env.getMaxNumActions = function() { return 2; }
 
 // create the DQN agent
 var spec = { alpha: 0.01 } // see full options on DQN page
-var leftagent = new RL.DQNAgent(env, spec); 
+
 var rightagent = new RL.DQNAgent(env, spec); 
 
 
@@ -250,11 +250,8 @@ function gameLoop() {
 	movePaddle();
 	drawGame();
 	
-	var action = leftagent.act([paddles[0].x, paddles[0].y, ball.x, ball.y]);
-	if (action==0) moveLeftPlayerDown();
-	else moveLeftPlayerUp();
-	var r1 = getReward(paddles[0].x, paddles[0].y, paddles[1].x, paddles[1].y, ball.x, ball.y, ball.speed, ball.angle);
-	leftagent.learn(r1);
+	if (ball.y < paddles[0].y+paddle.height/2) moveLeftPlayerUp();
+	else moveLeftPlayerDown();
 
 	var action = rightagent.act([paddles[1].x, paddles[1].y, ball.x, ball.y]);
 	if (action==0) moveRightPlayerDown();
@@ -262,9 +259,10 @@ function gameLoop() {
 	var r2 = getReward(paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle);
 	rightagent.learn(r2);
 
-	requestAnimationFrame(gameLoop);
+	//requestAnimationFrame(gameLoop);
 }
-gameLoop();
+//gameLoop();
+setInterval(gameLoop, 0);
 
 // listen for key presses
 $(document).keydown(function(e) {
