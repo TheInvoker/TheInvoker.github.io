@@ -7,7 +7,7 @@ var game_board, paddle, paddles, ball;
 
 function resetBoardData() {
 	
-	var items = [45, 135, 225, 315];
+	var items = [135 + Math.random()*90, Math.random()*45, 315+Math.random()*45];
 	var r_angle = items[Math.floor(Math.random()*items.length)];
 	
 	game_board = {
@@ -213,8 +213,10 @@ function movePaddle() {
 }
 
 function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, bally, ballspeed, ballangle) {
-	var d = Math.abs(bally, mypaddley+paddle.height/2);
-	return ((game_board.height - d)/game_board.height)*2 - 1;
+	if (bally >= mypaddley && bally <= mypaddley+paddle.height) {
+		return 1;
+	} 
+	return -1;
 }
 
 var canvas = document.createElement('canvas');
@@ -229,7 +231,7 @@ document.body.appendChild(canvas);
 
 // create an environment object
 var env = {};
-env.getNumStates = function() { return 8; }
+env.getNumStates = function() { return 4; }
 env.getMaxNumActions = function() { return 2; }
 
 // create the DQN agent
@@ -248,13 +250,13 @@ function gameLoop() {
 	movePaddle();
 	drawGame();
 	
-	var action = leftagent.act([paddles[0].x, paddles[0].y, paddles[1].x, paddles[1].y, ball.x, ball.y, ball.speed, ball.angle]);
+	var action = leftagent.act([paddles[0].x, paddles[0].y, ball.x, ball.y]);
 	if (action==0) moveLeftPlayerDown();
 	else moveLeftPlayerUp();
 	var r1 = getReward(paddles[0].x, paddles[0].y, paddles[1].x, paddles[1].y, ball.x, ball.y, ball.speed, ball.angle);
 	leftagent.learn(r1);
 
-	var action = rightagent.act([paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle]);
+	var action = rightagent.act([paddles[1].x, paddles[1].y, ball.x, ball.y]);
 	if (action==0) moveRightPlayerDown();
 	else moveRightPlayerUp();
 	var r2 = getReward(paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle);
