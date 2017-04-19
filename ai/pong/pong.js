@@ -63,7 +63,7 @@ function drawGame() {
 	
 	// draw score
 	ctx.fillStyle = "white";
-	ctx.font = "30px Arial";
+	ctx.font = "20px Arial";
 	ctx.fillText(scores[0] + " - " + scores[1],game_board.width/2 - 30, 40);
 }
 
