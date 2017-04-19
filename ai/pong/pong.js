@@ -64,7 +64,7 @@ function drawGame() {
 	// draw score
 	ctx.fillStyle = "white";
 	ctx.font = "20px Arial";
-	ctx.fillText(scores[0] + " - " + scores[1],game_board.width/2 - 30, 40);
+	ctx.fillText(scores[0] + " - " + scores[1] + " (" + (scores[1]/scores[0]).toFixed(2) + ")",game_board.width/2 - 30, 40);
 }
 
 function checkForWin() {
