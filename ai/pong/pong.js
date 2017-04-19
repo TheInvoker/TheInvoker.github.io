@@ -33,7 +33,8 @@ function resetBoardData() {
 		'y' : game_board.height/2,
 		'angle' : r_angle,
 		'o_angle' : r_angle,
-		'speed' : 5
+		'speed' : 2,
+		'speed2' : 4
 	};
 }
 
@@ -78,6 +79,21 @@ function checkForWin() {
 	}
 }
 
+function angle(cx, cy, ex, ey) {
+  var dy = ey - cy;
+  var dx = ex - cx;
+  var theta = Math.atan2(dy, dx); // range (-PI, PI]
+  theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+  //if (theta < 0) theta = 360 + theta; // range [0, 360)
+  return theta;
+}
+
+function distance(x1, y1, x2, y2) {
+	var a = x1 - x2;
+	var b = y1 - y2;
+	var c = Math.sqrt( a*a + b*b );
+	return c;
+}
 
 function moveBall() {
 	var nballx = ball.x + Math.cos(ball.angle * (Math.PI/180)) * ball.speed;
@@ -90,11 +106,45 @@ function moveBall() {
 		ball.angle = 360 - ball.angle;
 		return;
 	} else if (collides ({ x:paddles[0].x, y:paddles[0].y, w:paddle.width, h:paddle.height },{ x:nballx, y:nbally, r:ball.radius }, true) && ball.angle == ball.o_angle) {
-		ball.angle = 180 - ball.angle;
-		return;
+		
+		var d1 = distance(nballx, nbally, paddles[0].x+paddle.width/2, paddles[0].y);
+		var d2 = distance(nballx, nbally, paddles[0].x+paddle.width/2, paddles[0].y+paddle.height);
+		
+		var a = angle(paddles[0].x+paddle.width/2, -(paddles[0].y+paddle.height/2), nballx, -nbally);
+		if (a < 0) a = 360 + a;
+		
+		if (a > 90 && a < 270) {
+			ball.angle = 360 - ball.angle;
+			return;
+		} else if (d1 <= ball.radius*1.5 || d2 <= ball.radius*1.5) {
+			var r = ((Math.random()*2)-1) * 5;
+			ball.angle = a + r;
+			ball.speed = ball.speed2;
+			return;
+		} else {
+			ball.angle = 180 - ball.angle;
+			return;
+		}
 	} else if (collides ({ x:paddles[1].x, y:paddles[1].y, w:paddle.width, h:paddle.height },{ x:nballx, y:nbally, r:ball.radius }, true) && ball.angle == ball.o_angle) {
-		ball.angle = 180 - ball.angle;
-		return;
+		
+		var d1 = distance(nballx, nbally, paddles[1].x+paddle.width/2, paddles[1].y);
+		var d2 = distance(nballx, nbally, paddles[1].x+paddle.width/2, paddles[1].y+paddle.height);
+		
+		var a = angle(paddles[1].x+paddle.width/2, -(paddles[1].y+paddle.height/2), nballx, -nbally);
+		if (a < 0) a = 360 + a;
+		
+		if (a < 90 || a > 270) {
+			ball.angle = 360 - ball.angle;
+			return;	
+		} else if (d1 <= ball.radius*1.5 || d2 <= ball.radius*1.5) {	
+			var r = ((Math.random()*2)-1) * 5;
+			ball.angle = a + r;
+			ball.speed = ball.speed2;
+			return;
+		} else {
+			ball.angle = 180 - ball.angle;
+			return;
+		}
 	} else {
 		ball.o_angle = ball.angle;
 	}
