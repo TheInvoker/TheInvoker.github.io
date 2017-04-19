@@ -89,10 +89,10 @@ function moveBall() {
 	} else if (ball.y + ball.radius > game_board.height && ball.angle == ball.o_angle) {
 		ball.angle = 360 - ball.angle;
 		return;
-	} else if (collides ({ x:paddles[0].x, y:paddles[0].y, w:paddle.width, h:paddle.height },{ x:nballx, y:nbally, r:ball.radius }, true)) {
+	} else if (collides ({ x:paddles[0].x, y:paddles[0].y, w:paddle.width, h:paddle.height },{ x:nballx, y:nbally, r:ball.radius }, true) && ball.angle == ball.o_angle) {
 		ball.angle = 180 - ball.angle;
 		return;
-	} else if (collides ({ x:paddles[1].x, y:paddles[1].y, w:paddle.width, h:paddle.height },{ x:nballx, y:nbally, r:ball.radius }, true)) {
+	} else if (collides ({ x:paddles[1].x, y:paddles[1].y, w:paddle.width, h:paddle.height },{ x:nballx, y:nbally, r:ball.radius }, true) && ball.angle == ball.o_angle) {
 		ball.angle = 180 - ball.angle;
 		return;
 	} else {
