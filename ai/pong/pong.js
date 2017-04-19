@@ -234,12 +234,12 @@ function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, ball
 		var hyp = x / Math.cos(ballangle * (Math.PI/180));
 		var nby = bally - Math.sin(ball.angle * (Math.PI/180)) * hyp;
 		if (nby >= 0 && nby <= game_board.height) {
-		    return 1 - (Math.abs(nby - bally) / game_board.height);  
+		    return 1 - (Math.abs(nby - mypaddley) / game_board.height);  
 		} else {
-		    return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);  	
+		    return 1 - (Math.abs(game_board.height/2 - mypaddley) / game_board.height);  	
 		}
 	    } else {
-		return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);     
+		return 1 - (Math.abs(game_board.height/2 - mypaddley) / game_board.height);     
 	    }
 	} else {
 	    if (ballangle > 90 && ballangle < 270) {
@@ -247,12 +247,12 @@ function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, ball
 		var hyp = x / Math.cos(ballangle * (Math.PI/180));
 		var nby = bally - Math.sin(ball.angle * (Math.PI/180)) * hyp;
 		if (nby >= 0 && nby <= game_board.height) {
-		    return 1 - (Math.abs(nby - bally) / game_board.height);  
+		    return 1 - (Math.abs(nby - mypaddley) / game_board.height);  
 		} else {
-		    return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);  	
+		    return 1 - (Math.abs(game_board.height/2 - mypaddley) / game_board.height);  	
 		}
 	    } else {
-		return 1 - (Math.abs(game_board.height/2 - bally) / game_board.height);     
+		return 1 - (Math.abs(game_board.height/2 - mypaddley) / game_board.height);     
 	    }
 	}
 	
