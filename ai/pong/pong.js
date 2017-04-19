@@ -151,6 +151,8 @@ function moveBall() {
 		ball.o_angle = ball.angle;
 	}
 	
+	if (ball.angle < 0) ball.angle = 360+ball.angle;
+	
 	ball.x = nballx;
 	ball.y = nbally;
 }
