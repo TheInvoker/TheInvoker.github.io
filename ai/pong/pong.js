@@ -29,8 +29,8 @@ function resetBoardData() {
 		'radius' : 10,
 		'x' : game_board.width/2,
 		'y' : game_board.height/2,
-		'angle' : 355,
-		'o_angle' : 355,
+		'angle' : 0,
+		'o_angle' : 0,
 		'speed' : 5
 	};
 }
