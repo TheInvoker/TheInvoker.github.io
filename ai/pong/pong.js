@@ -260,10 +260,10 @@ function gameLoop() {
 	var r2 = getReward(paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle);
 	rightagent.learn(r2);
 
-	//requestAnimationFrame(gameLoop);
+	requestAnimationFrame(gameLoop);
 }
-//gameLoop();
-setInterval(gameLoop, 0);
+gameLoop();
+//setInterval(gameLoop, 0);
 
 // listen for key presses
 $(document).keydown(function(e) {
