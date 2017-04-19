@@ -213,10 +213,11 @@ function movePaddle() {
 }
 
 function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, bally, ballspeed, ballangle) {
+	var scale = 1 - (Math.abs(mypaddlex - ballx) / game_board.width);
 	if (bally >= mypaddley && bally <= mypaddley+paddle.height) {
-		return 1;
+		return scale;
 	} 
-	return -1;
+	return -scale;
 }
 
 var canvas = document.createElement('canvas');
