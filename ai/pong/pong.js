@@ -222,11 +222,10 @@ function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, ball
 	//var ys = 1 - ((Math.abs(mypaddley+paddle.height/2 - bally) / game_board.height);
 	//var xs = 1 - ((Math.abs(mypaddlex+paddle.width/2 - ballx) / game_board.width);
 	
-	if (Math.abs(ballx - mypaddlex+paddle.width/2) < paddle.height)) {
+	if (Math.abs(ballx - mypaddlex+paddle.width/2) < paddle.height * 2)) {
             return 1 - (Math.abs(mypaddley+paddle.height/2 - bally) / game_board.height);  
 	}
-	return -(Math.abs(mypaddley+paddle.height/2 - bally) / game_board.height);	
-
+	return -1 + (Math.abs(enemypaddley+paddle.height/2 - bally) / game_board.height);	
 }
 
 var canvas = document.createElement('canvas');
