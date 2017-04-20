@@ -63,15 +63,13 @@ function drawGame() {
 	ctx.fill();
 	ctx.closePath();
 	
-	var pastSeconds = ((new Date()) - startTime) / 1000;
-	
 	// draw score
 	ctx.fillStyle = "white";
 	ctx.font = "20px Arial";
 	ctx.fillText("Started " + formatDate(startTime),game_board.width/2 - 70, 40);
 	ctx.fillText(scores[0] + " - " + scores[1] + " (" + (100 * (scores[1]/scores[0])).toFixed(2) + ")",game_board.width/2 - 70, 60);
-	ctx.fillText(pastSeconds + "sec",game_board.width/2 - 70, 80);
-	ctx.fillText(trainingLength + " training size",game_board.width/2 - 70, 100);
+	ctx.fillText(getDateDiff(startTime, new Date()), game_board.width/2 - 70, 80);
+	ctx.fillText(trainingLength + " training size", game_board.width/2 - 70, 100);
 }
 
 function formatDate(date) {
@@ -83,6 +81,27 @@ function formatDate(date) {
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+}
+function getDateDiff(date_now, date_future) {
+	// get total seconds between the times
+	var delta = Math.abs(date_future - date_now) / 1000;
+
+	// calculate (and subtract) whole days
+	var days = Math.floor(delta / 86400);
+	delta -= days * 86400;
+
+	// calculate (and subtract) whole hours
+	var hours = Math.floor(delta / 3600) % 24;
+	delta -= hours * 3600;
+
+	// calculate (and subtract) whole minutes
+	var minutes = Math.floor(delta / 60) % 60;
+	delta -= minutes * 60;
+
+	// what's left is seconds
+	var seconds = delta % 60;  // in theory the modulus is not required	
+	
+	return hours + ":" + minutes + ":" + seconds;
 }
 
 function checkForWin(event) {
