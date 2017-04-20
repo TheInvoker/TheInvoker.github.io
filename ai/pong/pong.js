@@ -47,7 +47,7 @@ function drawGame() {
 	ctx.clearRect(0,0,game_board.width,game_board.height);
 	
 	// draw board
-	ctx.fillStyle = "black";
+	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,game_board.width,game_board.height); 
 	
 	// draw paddles
