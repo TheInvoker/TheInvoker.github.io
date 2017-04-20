@@ -271,7 +271,7 @@ document.body.appendChild(canvas);
 
 
 
-resetBoardData();
+
 function gameLoop(event) {
 	checkForWin(event);
 	moveBall(event);
@@ -289,25 +289,26 @@ function gameLoop(event) {
 	// machine learning right player ai
 	if (balInfo.hasOwnProperty('y')) {
 		event.source.postMessage({'id':1,'message':[balInfo.y/game_board.height, balInfo.angle/360]}, event.origin);
-		var predictedYPos = game_board.height * myNetwork.activate();
 	} else {
 		var predictedYPos = game_board.height/2 - paddle.height/2;
-		var a = predictedYPos - paddles[1].y;
-		if (a < 0) moveRightPlayerUp();
-		else if (a > 0) moveRightPlayerDown();	
+		moveToPredicted(predictedYPos);
 	}
 }
-
+function moveToPredicted(predictedYPos) {
+	var a = predictedYPos - paddles[1].y;
+	if (a < 0) moveRightPlayerUp();
+	else if (a > 0) moveRightPlayerDown();	
+}
 function receiveMessage(event) {
 	if (event.data.id == 0) {
+		resetBoardData();
 	   	setInterval(gameLoop, 0, event);	
 	} else if (event.data.id == 1) {
 		var predictedYPos = event.data.message * game_board.height;
-		var a = predictedYPos - paddles[1].y;
-		if (a < 0) moveRightPlayerUp();
-		else if (a > 0) moveRightPlayerDown();
+		moveToPredicted(predictedYPos);
 	}
 }
+
 
 window.addEventListener("message", receiveMessage, false);
 
