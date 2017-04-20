@@ -86,7 +86,7 @@ function formatDate(date) {
   return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
 }
 
-function checkForWin() {
+function checkForWin(event) {
 	if (ball.x + ball.radius < 0) {
 		scores[1] += 1;
 		console.log('Right wins!');
@@ -95,8 +95,7 @@ function checkForWin() {
 	} else if (ball.x - ball.radius > game_board.width) {
 		
 		if (balInfo.hasOwnProperty('y')) {
-			myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]);
-			myNetwork.propagate(learningRate, [ball.y/game_board.height]);
+			event.source.postMessage({'id':0,'message':[balInfo.y/game_board.height, balInfo.angle/360, ball.y/game_board.height]}, event.origin);
 			trainingLength += 1;
 		}
 		
@@ -107,7 +106,7 @@ function checkForWin() {
 	}
 }
 
-function moveBall() {
+function moveBall(event) {
 	var nballx = ball.x + Math.cos(ball.angle * (Math.PI/180)) * ball.speed;
 	var nbally = ball.y - Math.sin(ball.angle * (Math.PI/180)) * ball.speed;
 	
@@ -164,8 +163,7 @@ function moveBall() {
 		}
 		
 		if (balInfo.hasOwnProperty('y')) {
-			myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]);
-			myNetwork.propagate(learningRate, [ball.y/game_board.height]);
+                        event.source.postMessage({'id':0,'message':[balInfo.y/game_board.height, balInfo.angle/360, ball.y/game_board.height]}, event.origin);
 			trainingLength += 1;
 		}
 		
@@ -257,20 +255,6 @@ function movePaddle() {
 
 
 
-function getReward(mypaddlex, mypaddley, enemypaddlex, enemypaddley, ballx, bally, ballspeed, ballangle) {
-	if (ballangle < 90 || ballangle > 270) {
-		var x = Math.abs(ballx - mypaddlex+paddle.width/2);
-		var hyp = x / Math.cos(ballangle * (Math.PI/180));
-		var nby = bally - Math.sin(ball.angle * (Math.PI/180)) * hyp;
-		if (nby >= 0 && nby <= game_board.height) {
-			return 1 - (Math.abs(nby - mypaddley+paddle.height/2) / game_board.height);  
-		} else {
-			return 1 - (Math.abs(game_board.height/2 - mypaddley+paddle.height/2) / game_board.height);  	
-		}
-	} else {
-		return 1 - (Math.abs(game_board.height/2 - mypaddley+paddle.height/2) / game_board.height);     
-	}
-}
 
 var canvas = document.createElement('canvas');
 canvas.width = main_width;
@@ -280,45 +264,17 @@ document.body.appendChild(canvas);
 
 
 
-// RL
-
-// create an environment object
-var env = {};
-env.getNumStates = function() { return 4; }
-env.getMaxNumActions = function() { return 2; }
-
-// create the DQN agent
-var spec = { alpha: 0.01 } // see full options on DQN page
-
-var rightagent = new RL.DQNAgent(env, spec); 
 
 
-
-// NN
-var Layer = synaptic.Layer;
-var Network = synaptic.Network;
-// create the network
-var inputLayer = new Layer(2);
-var hiddenLayer = new Layer(3);
-var outputLayer = new Layer(1);
-
-inputLayer.project(hiddenLayer);
-hiddenLayer.project(outputLayer);
-
-var myNetwork = new Network({
-	input: inputLayer,
-	hidden: [hiddenLayer],
-	output: outputLayer
-});
 
 
 
 
 
 resetBoardData();
-function gameLoop() {
-	checkForWin();
-	moveBall();
+function gameLoop(event) {
+	checkForWin(event);
+	moveBall(event);
 	movePaddle();
 	drawGame();
 	
@@ -332,27 +288,29 @@ function gameLoop() {
 
 	// machine learning right player ai
 	if (balInfo.hasOwnProperty('y')) {
-		var predictedYPos = game_board.height * myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]);
+		event.source.postMessage({'id':1,'message':[balInfo.y/game_board.height, balInfo.angle/360]}, event.origin);
+		var predictedYPos = game_board.height * myNetwork.activate();
 	} else {
 		var predictedYPos = game_board.height/2 - paddle.height/2;
+		var a = predictedYPos - paddles[1].y;
+		if (a < 0) moveRightPlayerUp();
+		else if (a > 0) moveRightPlayerDown();	
 	}
-	
-	//if (paddles[1].y > predictedYPos) moveRightPlayerUp();
-	//else moveRightPlayerDown();
-	var a = predictedYPos - paddles[1].y;
-	if (a < 0) moveRightPlayerUp();
-	else if (a > 0) moveRightPlayerDown();
-	
-	//var action = rightagent.act([paddles[1].y, ball.x, ball.y, ball.angle]);
-	//if (action==0) moveRightPlayerDown();
-	//else moveRightPlayerUp();
-	//var r2 = getReward(paddles[1].x, paddles[1].y, paddles[0].x, paddles[0].y, ball.x, ball.y, ball.speed, ball.angle);
-	//rightagent.learn(r2);
-
-	//requestAnimationFrame(gameLoop);
 }
-//gameLoop();
-setInterval(gameLoop, 0);
+
+function receiveMessage(event) {
+	if (event.data.id == 0) {
+	   	setInterval(gameLoop, 0, event);	
+	} else if (event.data.id == 1) {
+		var predictedYPos = event.data.message * game_board.height;
+		var a = predictedYPos - paddles[1].y;
+		if (a < 0) moveRightPlayerUp();
+		else if (a > 0) moveRightPlayerDown();
+	}
+}
+
+window.addEventListener("message", receiveMessage, false);
+
 
 // listen for key presses
 $(document).keydown(function(e) {
