@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<title>Pong AI</title>
+
+		<style>
+			canvas {
+				border:1px solid black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
+		
+		<script>
+		
+			// Called sometime after postMessage is called
+			function receiveMessage(event) {
+
+				alert(event.data);
+
+				// event.source is window.opener
+				// event.data is "hello there!"
+
+				// Assuming you've verified the origin of the received message (which
+				// you must do in any case), a convenient idiom for replying to a
+				// message is to call postMessage on event.source and provide
+				// event.origin as the targetOrigin.
+				event.source.postMessage("hi there yourself!  the secret response " +
+									   "is: rheeeeet!",
+									   event.origin);
+			}
+
+			alert(1);
+			window.addEventListener("message", receiveMessage, false);
+			
+		</script>
+		
+		<script src="pong.js"></script>
+		<br/>
+		Left player - W (up) S (down)
+		<br/>
+		Right player - Up arrow (up) Down arrow (down)
+		
+		
+	</body>
+
+</html> 

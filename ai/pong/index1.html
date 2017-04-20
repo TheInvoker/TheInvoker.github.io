@@ -1,0 +1,63 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<title>Pong AI</title>
+
+		<style>
+			canvas {
+				border:1px solid black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="synaptic.min.js"></script>
+		
+		
+		<script>
+			var learningRate = .3;
+			var popup = window.open('./index2.html');
+			
+			
+			var Layer = synaptic.Layer;
+			var Network = synaptic.Network;
+			// create the network
+			var inputLayer = new Layer(2);
+			var hiddenLayer = new Layer(3);
+			var outputLayer = new Layer(1);
+
+			inputLayer.project(hiddenLayer);
+			hiddenLayer.project(outputLayer);
+
+			var myNetwork = new Network({
+				input: inputLayer,
+				hidden: [hiddenLayer],
+				output: outputLayer
+			});
+
+			function receiveMessage(event) {
+				alert(event.data);
+				
+				//myNetwork.activate([event.ballsy, event.ballangle]);
+				//myNetwork.propagate(learningRate, [event.bally]);
+
+				// event.source is popup
+				// event.data is "hi there yourself!  the secret response is: rheeeeet!"
+			}
+			
+			window.addEventListener("message", receiveMessage, false);
+			
+			popup.postMessage("hello there!", "localhost");
+		</script>
+		
+		
+		<br/>
+		Left player - W (up) S (down)
+		<br/>
+		Right player - Up arrow (up) Down arrow (down)
+		
+		
+	</body>
+
+</html> 
