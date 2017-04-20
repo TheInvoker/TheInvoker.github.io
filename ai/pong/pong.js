@@ -6,6 +6,7 @@ var learningRate = .3;
 var game_board, paddle, paddles, ball; 
 var balInfo = {};
 var startTime = new Date();
+var trainingLength = 0;
 
 function resetBoardData() {
 	
@@ -71,6 +72,7 @@ function drawGame() {
 	ctx.fillText("Started " + formatDate(startTime),game_board.width/2 - 70, 40);
 	ctx.fillText(scores[0] + " - " + scores[1] + " (" + (100 * (scores[1]/scores[0])).toFixed(2) + ")",game_board.width/2 - 70, 60);
 	ctx.fillText(pastSeconds + "sec",game_board.width/2 - 70, 80);
+	ctx.fillText(trainingLength + " training size",game_board.width/2 - 70, 100);
 }
 
 function formatDate(date) {
@@ -95,6 +97,7 @@ function checkForWin() {
 		if (balInfo.hasOwnProperty('y')) {
 			myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]);
 			myNetwork.propagate(learningRate, [ball.y/game_board.height]);
+			trainingLength += 1;
 		}
 		
 		scores[0] += 1;
@@ -163,6 +166,7 @@ function moveBall() {
 		if (balInfo.hasOwnProperty('y')) {
 			myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]);
 			myNetwork.propagate(learningRate, [ball.y/game_board.height]);
+			trainingLength += 1;
 		}
 		
 		return;
