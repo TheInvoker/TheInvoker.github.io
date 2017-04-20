@@ -46,24 +46,24 @@ function drawGame() {
 	// clear board
 	ctx.clearRect(0,0,game_board.width,game_board.height);
 	
-	/*
+	
 	// draw board
-	ctx.fillStyle = "black";
+	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,game_board.width,game_board.height); 
 	
 	// draw paddles
-	ctx.fillStyle = "white";
+	ctx.fillStyle = "dadada";
 	for(var i=0; i<paddles.length; i+=1) {
 		ctx.fillRect(paddles[i].x,paddles[i].y,paddle.width,paddle.height); 
 	}
 	
 	// draw ball
-	ctx.fillStyle = "cyan";
+	ctx.fillStyle = "dadada";
 	ctx.beginPath();
 	ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
 	ctx.fill();
 	ctx.closePath();
-	*/
+	
 	
 	// draw score
 	ctx.fillStyle = "black";
