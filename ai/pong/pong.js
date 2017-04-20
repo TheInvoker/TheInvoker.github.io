@@ -46,8 +46,9 @@ function drawGame() {
 	// clear board
 	ctx.clearRect(0,0,game_board.width,game_board.height);
 	
+	/*
 	// draw board
-	ctx.fillStyle = "white";
+	ctx.fillStyle = "black";
 	ctx.fillRect(0,0,game_board.width,game_board.height); 
 	
 	// draw paddles
@@ -57,11 +58,12 @@ function drawGame() {
 	}
 	
 	// draw ball
-	ctx.fillStyle = "white";
+	ctx.fillStyle = "cyan";
 	ctx.beginPath();
 	ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
 	ctx.fill();
 	ctx.closePath();
+	*/
 	
 	// draw score
 	ctx.fillStyle = "black";
