@@ -48,7 +48,7 @@
 			
 			window.addEventListener("message", receiveMessage, false);
 			
-			popup.postMessage("hello there!", "localhost");
+			popup.postMessage("hello there!", window.location.hostname);
 		</script>
 		
 		
