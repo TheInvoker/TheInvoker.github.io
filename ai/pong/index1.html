@@ -15,6 +15,7 @@
 		
 		<script>
 			var learningRate = .3;
+			var totalTrainingItems = 0;
 			var popup = window.open('./index.html', '_blank', 'location=yes,height=362,width=439,scrollbars=yes,status=yes');
 			
 			
@@ -36,6 +37,8 @@
 
 			function receiveMessage(event) {
 				if (event.data.id == 0) {
+				    totalTrainingItems += 1;
+				    document.getElementById("totalItems").innerHTML = totalTrainingItems;
 				    myNetwork.activate([event.data.message[0], event.data.message[1]]);
 				    myNetwork.propagate(learningRate, [event.data.message[2]]);  	
 				} else if (event.data.id == 1) {
@@ -52,7 +55,8 @@
 
 			
 		</script>
-
+		Total Training Size
+		<div id="totalItems">0</div>
 		
 	</body>
 
