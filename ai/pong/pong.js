@@ -101,7 +101,7 @@ function getDateDiff(date_now, date_future) {
 	// what's left is seconds
 	var seconds = delta % 60;  // in theory the modulus is not required	
 	
-	return hours + ":" + minutes + ":" + Math.floor(seconds);
+	return hours + "h " + minutes + "m " + Math.floor(seconds) + "s";
 }
 
 function checkForWin(event) {
