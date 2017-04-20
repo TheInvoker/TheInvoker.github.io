@@ -15,7 +15,7 @@
 		
 		<script>
 			var learningRate = .3;
-			var popup = window.open('./index.html');
+			var popup = window.open('./index.html', '_blank', 'location=yes,height=310,width=410,scrollbars=yes,status=yes');
 			
 			
 			var Layer = synaptic.Layer;
@@ -42,11 +42,6 @@
 				    var p = myNetwork.activate([event.data.message[0], event.data.message[1]]);
 				    popup.postMessage({'id':1, 'message':p}, "https://theinvoker.github.io");
 				}
-				
-
-
-				// event.source is popup
-				// event.data is "hi there yourself!  the secret response is: rheeeeet!"
 			}
 			
 			window.addEventListener("message", receiveMessage, false);
