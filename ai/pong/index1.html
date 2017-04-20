@@ -47,11 +47,9 @@
 			window.addEventListener("message", receiveMessage, false);
 			
 			popup.addEventListener('load', function() {
-			    alert(1);	
+			    popup.postMessage("hello there!", "https://theinvoker.github.io");
 			}, true); 
-			setTimeout(function() {
-			    popup.postMessage("hello there!", "https://theinvoker.github.io");	
-			}, 2000);
+
 			
 		</script>
 
