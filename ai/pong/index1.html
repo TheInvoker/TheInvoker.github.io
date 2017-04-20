@@ -16,8 +16,6 @@
 		<script>
 			var learningRate = .3;
 			var totalTrainingItems = 0;
-			var popup = window.open('./index.html', '_blank', 'location=yes,height=362,width=439,scrollbars=yes,status=yes');
-			
 			
 			var Layer = synaptic.Layer;
 			var Network = synaptic.Network;
@@ -34,7 +32,7 @@
 				hidden: [hiddenLayer],
 				output: outputLayer
 			});
-
+			
 			function receiveMessage(event) {
 				if (event.data.id == 0) {
 				    totalTrainingItems += 1;
@@ -43,15 +41,20 @@
 				    myNetwork.propagate(learningRate, [event.data.message[2]]);  	
 				} else if (event.data.id == 1) {
 				    var p = myNetwork.activate([event.data.message[0], event.data.message[1]]);
-				    popup.postMessage({'id':1, 'message':p}, "https://theinvoker.github.io");
+				    event.source.postMessage({'id':1, 'message':p}, "https://theinvoker.github.io");
 				}
 			}
-			
 			window.addEventListener("message", receiveMessage, false);
 			
-			popup.addEventListener('load', function() {
-			    popup.postMessage({'id':0}, "https://theinvoker.github.io");
-			}, true); 
+			function newPopup() {
+				var popup = window.open('./index.html', '_blank', 'location=yes,height=362,width=439,scrollbars=yes,status=yes');
+
+				popup.addEventListener('load', function() {
+				    popup.postMessage({'id':0}, "https://theinvoker.github.io");
+				}, true); 
+			}
+			
+			newPopup();
 
 			
 		</script>
