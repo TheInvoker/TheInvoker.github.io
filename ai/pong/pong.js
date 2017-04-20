@@ -2,7 +2,6 @@ var main_width = 400;
 var main_height = 300;
 var scores = [0, 0];
 var map = {38: false,40: false,87: false,83: false};
-var learningRate = .3;
 var game_board, paddle, paddles, ball; 
 var balInfo = {};
 var startTime = new Date();
