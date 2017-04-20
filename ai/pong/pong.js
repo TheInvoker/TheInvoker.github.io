@@ -57,14 +57,14 @@ function drawGame() {
 	}
 	
 	// draw ball
-	ctx.fillStyle = "cyan";
+	ctx.fillStyle = "white";
 	ctx.beginPath();
 	ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
 	ctx.fill();
 	ctx.closePath();
 	
 	// draw score
-	ctx.fillStyle = "gray";
+	ctx.fillStyle = "black";
 	ctx.font = "20px Arial";
 	ctx.fillText("Started " + formatDate(startTime),game_board.width/2 - 70, 40);
 	ctx.fillText(scores[0] + " - " + scores[1] + " (" + (100 * (scores[1]/scores[0])).toFixed(2) + ")",game_board.width/2 - 70, 60);
