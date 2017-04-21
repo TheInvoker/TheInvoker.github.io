@@ -52,13 +52,13 @@ function drawGame() {
 	ctx.fillRect(0,0,game_board.width,game_board.height); 
 	
 	// draw paddles
-	ctx.fillStyle = "dadada";
+	ctx.fillStyle = "#dadada";
 	for(var i=0; i<paddles.length; i+=1) {
 		ctx.fillRect(paddles[i].x,paddles[i].y,paddle.width,paddle.height); 
 	}
 	
 	// draw ball
-	ctx.fillStyle = "dadada";
+	ctx.fillStyle = "#dadada";
 	ctx.beginPath();
 	ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
 	ctx.fill();
