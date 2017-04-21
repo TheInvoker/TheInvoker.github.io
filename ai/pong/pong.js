@@ -335,9 +335,18 @@ function gameLoop(event) {
 
 	// machine learning right player ai
 	if (balInfo.hasOwnProperty('y')) {
-		var predictedYPos = myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]) * game_board.height;
+		var a = balInfo.y/game_board.height, b = balInfo.angle/360;
+		if (a == balInfo.a && b == balInfo.b) {
+			var predictedYPos = balInfo.predictedYPos;	
+		} else {
+			var predictedYPos = myNetwork.activate([a, b]) * game_board.height;
+			balInfo.a = a;
+			balInfo.b = b;
+			balInfo.predictedYPos = predictedYPos;
+		}
 	} else {
-		var predictedYPos = game_board.height/2 - paddle.height/2;
+		var predictedYPos = ball.y;
+		moveToPredicted(predictedYPos);
 	}
 	moveToPredicted(predictedYPos);
 }
