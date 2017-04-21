@@ -35,8 +35,8 @@
 				output: outputLayer
 			});
 			
-			//hiddenLayer.neurons().map(function(x) { x.squash = Neuron.squash.RELU; });
-			//hiddenLayer2.neurons().map(function(x) { x.squash = Neuron.squash.RELU; });
+			hiddenLayer.neurons().map(function(x) { x.squash = Neuron.squash.TANH; });
+			hiddenLayer2.neurons().map(function(x) { x.squash = Neuron.squash.TANH; });
 			
 			function receiveMessage(event) {
 				if (event.data.id == 0) {
