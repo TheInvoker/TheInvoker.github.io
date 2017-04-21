@@ -9,6 +9,7 @@ var trainingLength = 0;
 
 setInterval(function() {
 	scores = [0, 0];
+	startTime = new Date();
 }, 1000 * 60);
 
 
