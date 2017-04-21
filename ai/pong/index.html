@@ -54,7 +54,7 @@
 				var popup = window.open('./index.html', '_blank', 'location=yes,height=362,width=439,scrollbars=yes,status=yes');
 
 				popup.addEventListener('load', function() {
-				    popup.postMessage({'id':0}, "https://theinvoker.github.io");
+				    popup.postMessage({'id':0, 'message':myNetwork.toJSON()}, "https://theinvoker.github.io");
 				}, true); 
 			}
 			
