@@ -37,9 +37,15 @@ var myNetwork = new Network({
 });
 
 var neurons = myNetwork.neurons();
-neurons.map(function(x) {
-    x.squash = Neuron.squash.RELU;
-});
+neurons[0].squash = Neuron.squash.TANH;
+neurons[1].squash = Neuron.squash.TANH;
+neurons[2].squash = Neuron.squash.TANH;
+neurons[3].squash = Neuron.squash.TANH;
+neurons[4].squash = Neuron.squash.TANH;
+neurons[5].squash = Neuron.squash.TANH;
+neurons[6].squash = Neuron.squash.TANH;
+neurons[7].squash = Neuron.squash.TANH;
+neurons[8].squash = Neuron.squash.LOGISTIC;
 
 function resetBoardData() {
 	
