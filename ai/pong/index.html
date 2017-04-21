@@ -9,38 +9,43 @@
 	</head>
 
 	<body>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="synaptic.min.js"></script>
 		
 		<script>
-			var learningRate = .3;
 			var totalTrainingItems = 0;
 			
+			var learningRate = .3;
 			var Layer = synaptic.Layer;
 			var Network = synaptic.Network;
+			
 			// create the network
 			var inputLayer = new Layer(2);
 			var hiddenLayer = new Layer(3);
+			var hiddenLayer2 = new Layer(3);
 			var outputLayer = new Layer(1);
 
 			inputLayer.project(hiddenLayer);
-			hiddenLayer.project(outputLayer);
+			hiddenLayer.project(outputLayer2);
+			hiddenLayer2.project(outputLayer);
 
 			var myNetwork = new Network({
 				input: inputLayer,
-				hidden: [hiddenLayer],
+				hidden: [hiddenLayer, hiddenLayer2],
 				output: outputLayer
 			});
 			
 			function receiveMessage(event) {
 				if (event.data.id == 0) {
-				    totalTrainingItems += 1;
+				    totalTrainingItems += event.data.message.length;
 				    document.getElementById("totalItems").innerHTML = totalTrainingItems;
-				    myNetwork.activate([event.data.message[0], event.data.message[1]]);
-				    myNetwork.propagate(learningRate, [event.data.message[2]]);  	
+					
+				    for(var i=0; i<event.data.message.length; i+=1) {
+					var item = event.data.message[i];
+				    	myNetwork.activate([item[0], item[1]]);
+				    	myNetwork.propagate(learningRate, [item[2]]);
+				    }
 				} else if (event.data.id == 1) {
-				    var p = myNetwork.activate([event.data.message[0], event.data.message[1]]);
-				    event.source.postMessage({'id':1, 'message':p}, "https://theinvoker.github.io");
+				    event.source.postMessage({'id':1, 'message':myNetwork.toJSON()}, "https://theinvoker.github.io");
 				}
 			}
 			window.addEventListener("message", receiveMessage, false);
