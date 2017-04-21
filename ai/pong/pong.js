@@ -11,6 +11,30 @@ setInterval(function() {
 	scores = [0, 0];
 }, 1000 * 60);
 
+
+// NN
+var trainingDB = [];
+var learningRate = .3;
+var Layer = synaptic.Layer;
+var Network = synaptic.Network;
+
+// create the network
+var inputLayer = new Layer(2);
+var hiddenLayer = new Layer(3);
+var hiddenLayer2 = new Layer(3);
+var outputLayer = new Layer(1);
+
+inputLayer.project(hiddenLayer);
+hiddenLayer.project(outputLayer2);
+hiddenLayer2.project(outputLayer);
+
+var myNetwork = new Network({
+	input: inputLayer,
+	hidden: [hiddenLayer, hiddenLayer2],
+	output: outputLayer
+});
+
+
 function resetBoardData() {
 	
 	var items = [135 + Math.random()*90];//, Math.random()*45, 315+Math.random()*45];
@@ -115,18 +139,16 @@ function checkForWin(event) {
 		scores[1] += 1;
 		console.log('Right wins!');
 		resetBoardData();
-		return;
 	} else if (ball.x - ball.radius > game_board.width) {
 		
 		if (balInfo.hasOwnProperty('y')) {
-			event.source.postMessage({'id':0,'message':[balInfo.y/game_board.height, balInfo.angle/360, ball.y/game_board.height]}, event.origin);
+			trainingDB.push([balInfo.y/game_board.height, balInfo.angle/360, ball.y/game_board.height]);
 			trainingLength += 1;
 		}
 		
 		scores[0] += 1;
 		console.log('Left wins!');
 		resetBoardData();
-		return;
 	}
 }
 
@@ -187,7 +209,7 @@ function moveBall(event) {
 		}
 		
 		if (balInfo.hasOwnProperty('y')) {
-                        event.source.postMessage({'id':0,'message':[balInfo.y/game_board.height, balInfo.angle/360, ball.y/game_board.height]}, event.origin);
+			trainingDB.push([balInfo.y/game_board.height, balInfo.angle/360, ball.y/game_board.height]);
 			trainingLength += 1;
 		}
 		
@@ -260,20 +282,20 @@ function moveLeftPlayerDown() {
 function movePaddle() {
     if (map['38']) {
         // up right player - up arrow
-		moveRightPlayerUp();
+	moveRightPlayerUp();
     }
     if (map['40']) {
         // down right player - down arrow
-		moveRightPlayerDown();
+	moveRightPlayerDown();
     }
     
-	if (map['87']) {
-       // up left player - W
-		moveLeftPlayerUp();
+    if (map['87']) {
+        // up left player - W
+	moveLeftPlayerUp();
     }
     if (map['83']) {
-       // down left player - S
-		moveLeftPlayerDown();
+        // down left player - S
+	moveLeftPlayerDown();
     }
 }
 
@@ -312,24 +334,30 @@ function gameLoop(event) {
 
 	// machine learning right player ai
 	if (balInfo.hasOwnProperty('y')) {
-		event.source.postMessage({'id':1,'message':[balInfo.y/game_board.height, balInfo.angle/360]}, event.origin);
+		var predictedYPos = myNetwork.activate([balInfo.y/game_board.height, balInfo.angle/360]) * game_board.height;
 	} else {
 		var predictedYPos = game_board.height/2 - paddle.height/2;
-		moveToPredicted(predictedYPos);
 	}
+	moveToPredicted(predictedYPos);
 }
+
 function moveToPredicted(predictedYPos) {
 	var a = predictedYPos - paddles[1].y;
 	if (a < 0) moveRightPlayerUp();
 	else if (a > 0) moveRightPlayerDown();	
 }
+
 function receiveMessage(event) {
 	if (event.data.id == 0) {
 		resetBoardData();
-	   	setInterval(gameLoop, 0, event);	
+	   	setInterval(gameLoop, 0, event);
+		setInterval(function(event) {
+			event.source.postMessage({'id':0,'message':trainingDB}, event.origin); // send all your collected training data to master brain
+			event.source.postMessage({'id':1}, event.origin); // request for updated master brain
+			trainingDB.length = 0;	
+		}, 1000 * 60, event);
 	} else if (event.data.id == 1) {
-		var predictedYPos = event.data.message * game_board.height;
-		moveToPredicted(predictedYPos);
+		myNetwork = Network.fromJSON(event.data.message); // overwrite your brain with a copy of master brain
 	}
 }
 
