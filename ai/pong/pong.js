@@ -25,7 +25,7 @@ var hiddenLayer2 = new Layer(3);
 var outputLayer = new Layer(1);
 
 inputLayer.project(hiddenLayer);
-hiddenLayer.project(outputLayer2);
+hiddenLayer.project(hiddenLayer2);
 hiddenLayer2.project(outputLayer);
 
 var myNetwork = new Network({
