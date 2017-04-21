@@ -36,8 +36,8 @@ var myNetwork = new Network({
 	output: outputLayer
 });
 
-hiddenLayer.neurons().map(function(x) { x.squash = Neuron.squash.RELU; });
-hiddenLayer2.neurons().map(function(x) { x.squash = Neuron.squash.RELU; });
+//hiddenLayer.neurons().map(function(x) { x.squash = Neuron.squash.RELU; });
+//hiddenLayer2.neurons().map(function(x) { x.squash = Neuron.squash.RELU; });
 
 function resetBoardData() {
 	
