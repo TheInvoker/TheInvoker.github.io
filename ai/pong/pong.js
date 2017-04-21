@@ -356,6 +356,7 @@ function receiveMessage(event) {
 			event.source.postMessage({'id':1}, event.origin); // request for updated master brain
 			trainingDB.length = 0;	
 		}, 1000 * 60, event);
+		myNetwork = Network.fromJSON(event.data.message); // overwrite your brain with a copy of master brain
 	} else if (event.data.id == 1) {
 		myNetwork = Network.fromJSON(event.data.message); // overwrite your brain with a copy of master brain
 	}
