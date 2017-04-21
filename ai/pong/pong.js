@@ -16,6 +16,7 @@ setInterval(function() {
 // NN
 var trainingDB = [];
 var learningRate = .3;
+var Neuron = synaptic.Neuron;
 var Layer = synaptic.Layer;
 var Network = synaptic.Network;
 
@@ -35,6 +36,10 @@ var myNetwork = new Network({
 	output: outputLayer
 });
 
+var neurons = myNetwork.neurons();
+neurons.map(function(x) {
+    x.squash = Neuron.squash.RELU;
+});
 
 function resetBoardData() {
 	
