@@ -7,6 +7,10 @@ var balInfo = {};
 var startTime = new Date();
 var trainingLength = 0;
 
+setInterval(function() {
+	scores = [0, 0];
+}, 1000 * 60);
+
 function resetBoardData() {
 	
 	var items = [135 + Math.random()*90];//, Math.random()*45, 315+Math.random()*45];
