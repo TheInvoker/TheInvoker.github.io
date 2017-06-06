@@ -304,6 +304,7 @@ a[data-lightbox] {
 }
 .app-legal-iq {
 	background-image:url('../images/Samsung-Galaxy-S4-Flat-Mockup.png'), url('../images/apps/legal iq/Capture1.PNG');
+	background-position-x:50%;
 }
 .app-arin {
 	background-image:url('../images/Samsung-Galaxy-S4-Flat-Mockup.png'), url('../images/apps/arin/Screenshot_2015-01-09-00-21-49.png');
