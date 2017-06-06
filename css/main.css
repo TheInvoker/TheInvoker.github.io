@@ -302,6 +302,9 @@ a[data-lightbox] {
 	width:200px;
 	height:382px;
 }
+.app-legal-iq {
+	background-image:url('../images/Samsung-Galaxy-S4-Flat-Mockup.png'), url('../images/apps/legal iq/Capture1.PNG');
+}
 .app-arin {
 	background-image:url('../images/Samsung-Galaxy-S4-Flat-Mockup.png'), url('../images/apps/arin/Screenshot_2015-01-09-00-21-49.png');
 }
@@ -326,6 +329,9 @@ a[data-lightbox] {
 	background-position:0 0, 17px 17px;
 	width:200px;
 	height:145px;
+}
+.team-legal_iq {
+	background-image:url('../images/Table-Frame-Powerpoint-Template.png'), url('../images/teams/legal iq.jpg');
 }
 .team-taaid {
 	background-image:url('../images/Table-Frame-Powerpoint-Template.png'), url('../images/teams/daisychain.png');

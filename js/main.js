@@ -98,6 +98,14 @@ var MEMBERS = {
 	'25' : {
 		'name' : 'Ali Muntasir',
 		'link' : 'https://www.linkedin.com/in/ali-muntasir-3840b647' 
+	},
+	'26' : {
+		'name' : 'Sam Ip',
+		'link' : 'https://www.linkedin.com/in/sam-ip-3769995/' 
+	},
+	'27' : {
+		'name' : 'Christopher Aranadi',
+		'link' : 'https://www.linkedin.com/in/christopher-aranadi-815984110/' 
 	}
 };
 
