@@ -106,6 +106,10 @@ var MEMBERS = {
 	'27' : {
 		'name' : 'Christopher Aranadi',
 		'link' : 'https://www.linkedin.com/in/christopher-aranadi-815984110/' 
+	},
+	'28' : {
+		'name' : 'Heidi Wong',
+		'link' : 'https://www.linkedin.com/in/heidi-wong-23673384/' 
 	}
 };
 
