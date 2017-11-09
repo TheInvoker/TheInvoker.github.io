@@ -347,6 +347,8 @@ a[data-lightbox] {
 	background-image:url('../images/Table-Frame-Powerpoint-Template.png'), url('../images/teams/cleanupcrew/unspecified7.jpg');
 }
 .team-earlybird {
+	background-size:200px 290px, 175px 237px;
+	height:290px;
 	background-image:url('../images/Table-Frame-Powerpoint-Template.png'), url('../images/teams/earlybird/image001.png');	
 }
 
