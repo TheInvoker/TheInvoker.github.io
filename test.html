@@ -10,7 +10,7 @@
         </script>   
         <script>
             function onLinkedInLoad() {
-                IN.UI.Authorize().params({"scope":["r_fullprofile"]}).place();
+                IN.UI.Authorize().params({"scope":["r_basicprofile", "r_emailaddress", "r_fullprofile"]}).place();
                 IN.Event.on(IN, 'auth', getProfileData);
                 // https://stackoverflow.com/questions/10373497/how-can-i-use-the-linkedin-javascript-api-as-a-login-for-my-own-website
 
