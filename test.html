@@ -19,7 +19,8 @@
                 //IN.API.Raw("me").method("GET").result(function(data) {
                 //    console.log(data);
                 //});
-                IN.API.Profile("me").fields("id,firstName,lastName,email-address,picture-urls::(original),public-profile-url,location:(name)").result(function (me) {
+                // .fields("id,firstName,lastName,email-address,picture-urls::(original),public-profile-url,location:(name)")
+                IN.API.Profile("me").result(function (me) {
                     var profile = me.values[0];
                     var id = profile.id;
                     var firstName = profile.firstName;
