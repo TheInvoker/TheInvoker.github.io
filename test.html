@@ -21,7 +21,7 @@
                 //});
                 // https://developer.linkedin.com/docs/fields/basic-profile
                 // https://developer.linkedin.com/docs/fields/full-profile
-                IN.API.Profile("me").fields("id,first-name,last-name,email-address,picture-urls::(original),public-profile-url,location,headline,industry,num-connections,num-connections-capped,summary,specialties,positions,skills").result(function (me) {
+                IN.API.Profile("me").fields("id,first-name,last-name,email-address,picture-urls::(original),public-profile-url,location,headline,industry,num-connections,num-connections-capped,summary,specialties,positions").result(function (me) {
                     var profile = me.values[0];
                     var id = profile.id;
                     var firstName = profile.firstName;
