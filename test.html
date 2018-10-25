@@ -2,19 +2,19 @@
 <html>
     <head>
         <title>Title of the document</title>
-        <script>
-            function worked() {
-                IN.API.Raw("/me").method("GET").result(function(a, b, c, d, e) {
-                    console.log(a, b, c, d, e);
-                });
-            }
-        </script>
         <script type="text/javascript" src="//platform.linkedin.com/in.js">
             api_key:   86n0msmb7izbku
             onLoad:    worked
             authorize: true
             lang:      en_US
         </script>   
+        <script>
+            function worked() {
+                IN.API.Raw("/me/").method("GET").result(function(data) {
+                    console.log(data);
+                });
+            }
+        </script>
     </head>
 
     <body>
