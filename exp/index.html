@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title of the document</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="profile">
+
+            <img :src="image_url"/>
+            <div>{{name}}</div>
+            <div>{{headline}}</div>
+            <div>{{connections}}</div>
+            <div>{{location}}</div>
+            <div>{{industry}}</div>
+
+            <div>{{intro.current_work}}</div>
+            <div><a :href="intro.previous_work_url">{{intro.previous_work}}</a></div>
+            <div><a :href="intro.education_url">{{intro.education}}</a></div>
+            <div>{{intro.recommenations_count}}</div>
+            <div v-for="website in intro.websites">
+                <a :href="website.url">{{website.name}}</a>
+            </div>
+
+            <div v-html="summary_html"></div>
+
+            <div v-for="exp in experience">
+                <img :src="exp.logo_url"/>
+                <div>{{exp.title}}</div>
+                <div>{{exp.subtitle}}</div>
+                <div>{{exp.date_range}}</div>
+                <div>{{exp.location}}</div>
+                <div v-html="exp.description_html"></div>
+            </div>
+
+            <div v-for="edu in education">
+                <img :src="edu.logo_url"/>
+                <div>{{edu.title}}</div>
+                <div>{{edu.subtitle}}</div>
+                <div>{{edu.date_range}}</div>
+                <div v-html="edu.description_html"></div>
+            </div>
+
+            <div v-for="skill in skills">
+                <div>{{skill.name}}</div>
+                <div>{{skill.count}}</div>
+            </div>  
+
+            <div v-for="cert in certifications">
+                <div><a :href="cert.url">{{cert.title}}</a></div>
+                <div>{{cert.subtitle}}</div>
+                <div>{{cert.date_range}}</div>
+            </div>  
+
+            <div v-for="course_set in courses">
+                <div>{{course_set.title}}</div>
+                <div v-for="course in course_set.courses">
+                    <div>{{course}}</div>
+                </div>
+            </div>
+
+            <div v-for="award in awards">
+                <div>{{award.title}}</div>
+                <div>{{award.subtitle}}</div>
+                <div>{{award.date_range}}</div>
+                <div v-html="award.description_html"></div>
+            </div>
+
+            <div v-for="project in projects">
+                <div><a :href="project.url">{{project.title}}</a></div>
+                <div>{{project.subtitle}}</div>
+                <div>{{project.date_range}}</div>
+                <div v-html="project.description_html"></div>
+                <div v-for="contributer in project.contributers">
+                    <div><a :href="contributer.url">{{contributer.name}}</a></div>
+                </div>
+            </div>
+
+            <div v-for="recommendation in recommendations">
+                {{recommendation}}
+            </div>
+
+            <div v-for="group in groups">
+                <div><a :href="group.url"><img :src="group.logo_url"/>{{group.title}}</a></div>
+            </div>
+        </div>
+
+        <script>
+            $.ajax({
+                url:"/exp/profile.html",
+                success:function(data) {
+                    $.ajax({
+                        url:"/exp/skills.html",
+                        success:function(data2) {
+                            var page = $($.parseHTML(data));
+                            var skills = $($.parseHTML(data2));
+
+                            var vm = new Vue({
+                                el: '#profile',
+                                data: {
+                                    image_url : page.find(".image.profile-img").attr("data-delayed-url"),
+                                    name : page.find("#name").text(),
+                                    headline : page.find(".headline.title").text(),
+                                    connections : page.find(".member-connections strong").text(),
+                                    location : page.find("#demographics .descriptor.address").text(),
+                                    industry : page.find("#demographics .descriptor:not(.address)").text(),
+                                    intro : {
+                                        current_work : page.find(".extra-info tr[data-section='currentPositionsDetails'] td").text(),
+                                        previous_work : page.find(".extra-info tr[data-section='pastPositionsDetails'] td").text(),
+                                        previous_work_url : page.find(".extra-info tr[data-section='pastPositionsDetails'] a").attr("href"),
+                                        education : page.find(".extra-info tr[data-section='educationsDetails'] td").text(),
+                                        education_url : page.find(".extra-info tr[data-section='educationsDetails'] td").attr("href"),
+                                        recommenations_count : page.find(".extra-info tr[data-section='recommendations'] td strong").eq(0).text(),
+                                        websites : $.makeArray(page.find(".extra-info tr[data-section='websites'] td li").map(function(i, val) {
+                                            var li_url = $(val).find("a").attr("href");
+                                            var r = new URL(li_url);
+                                            return {
+                                                name : $(val).text(),
+                                                url : r.searchParams.get("url")
+                                            };
+                                        }))
+                                    },
+                                    summary_html : page.find("#summary .description").html(),
+                                    experience : $.makeArray(page.find("#experience > ul > li").map(function(i, val) {
+                                        return {
+                                            logo_url : $(val).find(".logo img").attr("data-delayed-url"),
+                                            title : $(val).find(".item-title").text(),
+                                            subtitle : $(val).find(".item-subtitle").text(),
+                                            date_range : $(val).find(".date-range").text(),
+                                            location : $(val).find(".location").text(),
+                                            description_html : $(val).find(".description").html()
+                                        };
+                                    })),
+                                    education : $.makeArray(page.find("#education > ul > li").map(function(i, val) {
+                                        return {
+                                            logo_url : $(val).find(".logo img").attr("data-delayed-url"),
+                                            title : $(val).find(".item-title").text(),
+                                            subtitle : $(val).find(".item-subtitle").text(),
+                                            date_range : $(val).find(".date-range").text(),
+                                            description_html : $(val).find(".description").html()
+                                        };
+                                    })),
+                                    skills : $.makeArray(skills.find(".pv-skill-category-entity__skill-wrapper.tooltip-container").map(function(i, val) {
+                                        return {
+                                            name : $(val).find(".pv-skill-category-entity__name").text().trim(),
+                                            count : $(val).find(".pv-skill-category-entity__endorsement-count").text()
+                                        };
+                                    })),
+                                    certifications : $.makeArray(page.find("#certifications > ul > li").map(function(i, val) {
+                                        var li_url = $(val).find("a").attr("href");
+                                        var r = new URL(li_url);
+                                        return {
+                                            url : r.searchParams.get("url"),
+                                            title : $(val).find(".item-title").text(),
+                                            subtitle : $(val).find(".item-subtitle").text(),
+                                            date_range : $(val).find(".date-range").text()
+                                        };
+                                    })),
+                                    courses : $.makeArray(page.find("#courses > ul > li").map(function(i, val) {
+                                        return {
+                                            title : $(val).find(".item-title").text(),
+                                            courses : $.makeArray($(val).find(".courses-list-container.description > ul > li").map(function(i, val){
+                                                return $(val).text();
+                                            }))
+                                        };
+                                    })),
+                                    awards : $.makeArray(page.find("#awards > ul > li").map(function(i, val) {
+                                        return {
+                                            title : $(val).find(".item-title").text(),
+                                            subtitle : $(val).find(".item-subtitle").text(),
+                                            date_range : $(val).find(".date-range").text(),
+                                            description_html : $(val).find(".description").html()
+                                        };
+                                    })),
+                                    projects : $.makeArray(page.find("#projects > ul > li").map(function(i, val) {
+                                        var li_url = $(val).find("a").attr("href");
+                                        var r = new URL(li_url);
+                                        return {
+                                            url : r.searchParams.get("url"),
+                                            title : $(val).find(".item-title").text(),
+                                            subtitle : $(val).find(".item-subtitle").text(),
+                                            date_range : $(val).find(".date-range").text(),
+                                            description_html : $(val).find(".description").html(),
+                                            contributers : $.makeArray($(val).find(".contributors ul li").map(function(i,val) {
+                                                return {
+                                                    name : $(val).find("a").text(),
+                                                    url : $(val).find("a").attr("href")
+                                                };
+                                            }))
+                                        };
+                                    })),
+                                    recommendations : $.makeArray(page.find("#recommendations .recommendation").map(function(i, val) {
+                                        return $(val).text();
+                                    })),
+                                    groups : $.makeArray(page.find("#groups > ul > li").map(function(i, val) {
+                                        return {
+                                            url : $(val).find("a").attr("href"),
+                                            logo_url : $(val).find(".logo img").attr("data-delayed-url"),
+                                            title : $(val).find(".item-title").text()
+                                        };
+                                    })) 
+                                }
+                            });
+
+                            console.log(vm.$data);
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
