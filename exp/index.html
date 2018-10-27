@@ -2,87 +2,150 @@
 <html>
     <head>
         <title>Title of the document</title>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
         <div id="profile">
 
-            <img :src="image_url"/>
-            <div>{{name}}</div>
-            <div>{{headline}}</div>
-            <div>{{connections}}</div>
-            <div>{{location}}</div>
-            <div>{{industry}}</div>
-
-            <div>{{intro.current_work}}</div>
-            <div><a :href="intro.previous_work_url">{{intro.previous_work}}</a></div>
-            <div><a :href="intro.education_url">{{intro.education}}</a></div>
-            <div>{{intro.recommenations_count}}</div>
-            <div v-for="website in intro.websites">
-                <a :href="website.url">{{website.name}}</a>
+            <div class="rd-center-section">
+                <img :src="image_url" class="rd-circle-picture elevation-1"/>
             </div>
 
-            <div v-html="summary_html"></div>
-
-            <div v-for="exp in experience">
-                <img :src="exp.logo_url"/>
-                <div>{{exp.title}}</div>
-                <div>{{exp.subtitle}}</div>
-                <div>{{exp.date_range}}</div>
-                <div>{{exp.location}}</div>
-                <div v-html="exp.description_html"></div>
+            <div class="rd-section elevation-1">
+                <div>Name: {{name}}</div>
+                <div>Position: {{headline}}</div>
+                <div>LinkedIn Connections: {{connections}}</div>
+                <div>Location: {{location}}</div>
+                <div>Industry: {{industry}}</div>
             </div>
 
-            <div v-for="edu in education">
-                <img :src="edu.logo_url"/>
-                <div>{{edu.title}}</div>
-                <div>{{edu.subtitle}}</div>
-                <div>{{edu.date_range}}</div>
-                <div v-html="edu.description_html"></div>
-            </div>
-
-            <div v-for="skill in skills">
-                <div>{{skill.name}}</div>
-                <div>{{skill.count}}</div>
-            </div>  
-
-            <div v-for="cert in certifications">
-                <div><a :href="cert.url">{{cert.title}}</a></div>
-                <div>{{cert.subtitle}}</div>
-                <div>{{cert.date_range}}</div>
-            </div>  
-
-            <div v-for="course_set in courses">
-                <div>{{course_set.title}}</div>
-                <div v-for="course in course_set.courses">
-                    <div>{{course}}</div>
+            <div class="rd-section elevation-1">
+                <h3>Intro</h3>
+                <div>{{intro.current_work}}</div>
+                <div><a :href="intro.previous_work_url">{{intro.previous_work}}</a></div>
+                <div><a :href="intro.education_url">{{intro.education}}</a></div>
+                <div>{{intro.recommenations_count}}</div>
+                <div v-for="website in intro.websites">
+                    <a :href="website.url">{{website.name}}</a>
                 </div>
             </div>
 
-            <div v-for="award in awards">
-                <div>{{award.title}}</div>
-                <div>{{award.subtitle}}</div>
-                <div>{{award.date_range}}</div>
-                <div v-html="award.description_html"></div>
+            <div class="rd-section elevation-1">
+                <h3>Summary</h3>
+                <div v-html="summary_html"></div>
             </div>
 
-            <div v-for="project in projects">
-                <div><a :href="project.url">{{project.title}}</a></div>
-                <div>{{project.subtitle}}</div>
-                <div>{{project.date_range}}</div>
-                <div v-html="project.description_html"></div>
-                <div v-for="contributer in project.contributers">
-                    <div><a :href="contributer.url">{{contributer.name}}</a></div>
+            <div class="rd-section elevation-1">
+                <h3>Experience</h3>
+                <div v-for="(exp,index) in experience">
+                    <div class="rd-2-col-icon">
+                        <div>
+                            <div>{{exp.title}}</div>
+                            <div>{{exp.subtitle}}</div>
+                            <div class="rd-caption">{{exp.date_range}}</div>
+                            <div class="rd-caption">{{exp.location}}</div>
+                            <div v-html="exp.description_html"></div> 
+                        </div>
+                        <div>
+                            <img :src="exp.logo_url"/>
+                        </div>
+                    </div>
+                    <hr v-if="index < experience.length-1"/>
                 </div>
             </div>
 
-            <div v-for="recommendation in recommendations">
-                {{recommendation}}
+            <div class="rd-section elevation-1">
+                <h3>Education</h3>
+                <div v-for="(edu,index) in education">
+                    <div class="rd-2-col-icon">
+                        <div>     
+                            <div>{{edu.title}}</div>
+                            <div>{{edu.subtitle}}</div>
+                            <div class="rd-caption">{{edu.date_range}}</div>
+                            <div v-html="edu.description_html"></div>
+                        </div>
+                        <div>
+                            <img :src="edu.logo_url"/>
+                        </div>
+                    </div>
+                    <hr v-if="index < education.length-1"/>
+                </div>
             </div>
 
-            <div v-for="group in groups">
-                <div><a :href="group.url"><img :src="group.logo_url"/>{{group.title}}</a></div>
+            <div class="rd-section elevation-1">
+                <h3>Skills</h3>
+                <div v-for="skill in skills" class="rd-tag">
+                    <span>{{skill.name}}</span> <span v-if="skill.count">- {{skill.count}}</span> 
+                </div>
+            </div>  
+
+            <div class="rd-section elevation-1">
+                <h3>Certifications</h3>
+                <div v-for="(cert,index) in certifications">
+                    <div><a :href="cert.url">{{cert.title}}</a></div>
+                    <div>{{cert.subtitle}}</div>
+                    <div class="rd-caption">{{cert.date_range}}</div>
+                    <hr v-if="index < certifications.length-1"/>
+                </div> 
+            </div>
+
+            <div class="rd-section elevation-1">
+                <h3>Courses</h3>
+                <div v-for="course_set in courses">
+                    <b>{{course_set.title}}</b>
+                    <ul>
+                        <li v-for="course in course_set.courses">
+                            {{course}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="rd-section elevation-1">
+                <h3>Awards</h3>
+                <div v-for="(award,index) in awards">
+                    <div><b>{{award.title}}</b></div>
+                    <div>{{award.subtitle}}</div>
+                    <div class="rd-caption">{{award.date_range}}</div>
+                    <div v-html="award.description_html"></div>
+                    <hr v-if="index < awards.length-1"/>
+                </div>
+            </div>
+
+            <div class="rd-section elevation-1">
+                <h3>Projects</h3>
+                <div v-for="(project,index) in projects">
+                    <div><b><a :href="project.url">{{project.title}}</a></b></div>
+                    <div>{{project.subtitle}}</div>
+                    <div class="rd-caption">{{project.date_range}}</div>
+                    <div v-html="project.description_html"></div>
+                    <div v-if="project.contributers.length > 0">
+                        <br/>
+                        <div class="rd-caption">Project Contributors</div>
+                    </div>
+                    <div v-for="contributer in project.contributers" class="rd-tag">
+                        <a :href="contributer.url">{{contributer.name}}</a>
+                    </div>
+                    <hr v-if="index < projects.length-1"/>
+                </div>
+            </div>
+
+            <div class="rd-section elevation-1">
+                <h3>Recommendations</h3>
+                <div v-for="recommendation in recommendations">
+                    <i>{{recommendation}}</i>
+                </div>
+            </div>
+
+            <div class="rd-section elevation-1">
+                <h3>Groups</h3>
+                <div v-for="group in groups" class="rd-small-card">
+                    <a :href="group.url"><img :src="group.logo_url" class="rd-small-card-icon"/>{{group.title}}</a>
+                </div>
             </div>
         </div>
 
@@ -183,8 +246,9 @@
                                             date_range : $(val).find(".date-range").text(),
                                             description_html : $(val).find(".description").html(),
                                             contributers : $.makeArray($(val).find(".contributors ul li").map(function(i,val) {
+                                                var a_tag = $(val).find("a");
                                                 return {
-                                                    name : $(val).find("a").text(),
+                                                    name : a_tag.length == 0 ? $(val).text().replace(/,/g,"") : $(val).find("a").text(),
                                                     url : $(val).find("a").attr("href")
                                                 };
                                             }))
