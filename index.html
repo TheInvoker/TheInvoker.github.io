@@ -1,14 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-		
-		<title>Website</title>
+<html>
+    <head>
+        <title>Title of the document</title>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+		<script src="util.js"></script>
+    </head>
+    <body>
+        <script>
+            
+            var linearModel = tf.sequential();
 
-	</head>
-	<body>
+            linearModel.add(tf.layers.dense({
+                inputShape: [2],
+                activation : "sigmoid",
+                units: 5
+            }));
+            linearModel.add(tf.layers.dense({
+                inputShape: [5],
+                activation : "sigmoid",
+                units: 1
+            }));
+            linearModel.add(tf.layers.dense({
+                activation : "sigmoid",
+                units: 1
+            }));
 
-	</body>
+            linearModel.compile({
+                loss: 'meanSquaredError', 
+                optimizer: tf.train.sgd(0.0001)
+            });
+        
+			var myWorker1 = new Worker('pong.js');
+			var myWorker2 = new Worker('pong.js');
+
+			myWorker1.onmessage = processKnowledge;
+			myWorker2.onmessage = processKnowledge;
+
+            var canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            canvas.setAttribute('width', game_md.width);
+            canvas.setAttribute('height', game_md.height);
+            canvas.style.border = "1px solid black";
+            var ctx = canvas.getContext("2d");
+
+			reset();
+			
+            setInterval(gLoop, 1);
+
+            function drawGame() {
+                ctx.fillStyle="#000000";
+                ctx.fillRect(0,0,game_md.width,game_md.height);
+
+                ctx.fillStyle="#ffffff";
+                paddles.map(function(paddle) {
+                    ctx.fillRect(paddle.x, paddle.y, game_md.paddle.width, game_md.paddle.height);
+                });
+
+                var circle = new Path2D();
+                circle.arc(ball.x+ball_md.radius, ball.y+ball_md.radius, ball_md.radius, 0, 2 * Math.PI, false);
+                ctx.fill(circle);
+
+                var score = paddles.map(function(paddle){
+                    return paddle.points;
+                }).join(" - ");
+                ctx.fillStyle="#888888";
+                ctx.font="30px Arial";
+                ctx.fillText(score,Math.floor(game_md.width/2)-20,30);
+            }
+
+			function gLoop() {
+				gameLoop(function() {
+					ML_prediction_y = linearPrediction(ball.y, ball.direction);
+				}, function() {
+
+				});
+
+				drawGame();
+			}
+
+            function linearPrediction(ball_y, ball_direction) {
+                var output = linearModel.predict(tf.tensor2d([[ball_y, ball_direction]]));
+                var prediction = Array.from(output.dataSync())[0];
+                return prediction;
+			}
+			
+			function processKnowledge(e) {
+				console.log("got knowledge");
+
+				var data = e.data;
+				var xs = tf.tensor2d(data[0]);
+				var ys = tf.tensor1d(data[1]);
+				linearModel.fit(xs, ys, {
+					epochs: 10
+				}).then(function(history) {
+
+				});
+			}
+        </script>
+    </body>
 </html>
