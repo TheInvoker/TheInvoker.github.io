@@ -80,6 +80,8 @@
 				gameLoop(function() {
 					ML_prediction_y = linearPrediction();
 				}, function() {
+        
+                }, function() {
 
 				});
 
@@ -87,7 +89,7 @@
 			}
 
             function linearPrediction() {
-                var set = [ball.y/game_md.height, normalizeDirection(ball.direction)/Math.PI];
+                var set = [ball.x/game_md.width, ball.y/game_md.height, normalizeDirection(ball.direction)/Math.PI];
                 var output = linearModel.predict(tf.tensor2d([set]));
                 var prediction = Array.from(output.dataSync())[0];
                 return prediction * game_md.height;

@@ -7,15 +7,20 @@ reset();
 
 setInterval(gLoop, 1);
 
+var buffer = [];
+
 function gLoop() {
     gameLoop(function() {
-        ML_ball_y = ball.y;
-        ML_ball_direction = ball.direction;
+        buffer.push([ball.x, ball.y, ball.direction]);
         ML_prediction_y = Math.random() * game_md.height;
     }, function() {
-        buffer_xs.push([ML_ball_y/game_md.height, normalizeDirection(ML_ball_direction)/Math.PI]);
-        buffer_ys.push(ball.y/game_md.height);
-        if (buffer_xs.length > 5) {
+
+    }, function() {
+        buffer.map(function(item) {
+            buffer_xs.push([item[0]/game_md.width, item[1]/game_md.height, normalizeDirection(item[2])/Math.PI]);
+            buffer_ys.push(ball.y/game_md.height);
+        });
+        if (buffer_xs.length > 100) {
             postMessage([buffer_xs, buffer_ys]);
             buffer_xs = [];
             buffer_ys = [];

@@ -30,9 +30,8 @@ var ball = {};
 //ball = {x: 358.27499778992325, y: 22.052537557019512, direction: -70.95792512076213}
 //ball = {x: 28.760797892813002, y: 37.765134038679754, direction: 251.75470433315252}
 
-var ML_ball_y = null;
-var ML_ball_direction = null;
-var ML_prediction_y = null;
+var ML_from_enemy = false;
+var ML_prediction_y = 0;
 
 function reset() {
     paddles.map(function(paddle) {
@@ -42,9 +41,7 @@ function reset() {
     ball.y = Math.floor(game_md.height/2) - ball_md.radius; 
     ball.direction = Math.random()*Math.PI;
 
-    ML_ball_y = null;
-    ML_ball_direction = null;
-    ML_prediction_y = null;
+    ML_prediction_y = 0;
 
     /*
     ball.x = 100;
@@ -73,7 +70,7 @@ function reset() {
     */
 }
 
-function gameLoop(onEnemyHitPaddle, train) {
+function gameLoop(onMoveToYou, onHitOwnPaddle, train) {
 
     // move ball
     var dx = Math.cos(ball.direction)*ball_md.speed;
@@ -107,8 +104,9 @@ function gameLoop(onEnemyHitPaddle, train) {
     // hit paddle event
     if (hitPaddle) {
 
-        if (hitPaddle == nai) {
-            onEnemyHitPaddle();
+        ML_from_enemy = hitPaddle == nai;
+        if (!ML_from_enemy) {
+            onHitOwnPaddle();
         }
 
         reverseUntilNoCollision(hitPaddle);   
@@ -136,7 +134,7 @@ function gameLoop(onEnemyHitPaddle, train) {
         //ball.direction = bounceAngle;
     }
     
-    if (ball.y < 0 || ball.y+ball_md.radius*2 >= game_md.height) {                                         // up/bottom wall
+    if (ball.y < 0 || ball.y+ball_md.radius*2 >= game_md.height) {                                  // up/bottom wall
         ball.direction = 2*Math.PI - ball.direction; 
     }
     
@@ -146,11 +144,16 @@ function gameLoop(onEnemyHitPaddle, train) {
     }
     
     if (ball.x >= game_md.width) {                                                                  // right exit
-        if (ML_ball_y !== null && ML_ball_direction !== null && ML_prediction_y !== null) {
+        if (ML_from_enemy) {
             train();
         }
         paddles[0].points++;
         reset();
+    }
+
+    var deg = radToDeg(ball.direction);
+    if (ML_from_enemy && (deg < 90 || deg > 270)) {
+        onMoveToYou();
     }
 }
 
@@ -201,4 +204,10 @@ function normalizeDirection(rad) {
         rad -= Math.PI;
     }
     return rad;
+}
+
+function radToDeg(rad) {
+    var rad = normalizeDirection(rad);
+    var degrees = rad * (180/Math.PI);
+    return degrees;
 }
