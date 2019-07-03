@@ -30,9 +30,9 @@ var ball = {};
 //ball = {x: 358.27499778992325, y: 22.052537557019512, direction: -70.95792512076213}
 //ball = {x: 28.760797892813002, y: 37.765134038679754, direction: 251.75470433315252}
 
-var ML_ball_y = ball.y;
-var ML_ball_direction = ball.direction;
-var ML_prediction_y = 0;
+var ML_ball_y = null;
+var ML_ball_direction = null;
+var ML_prediction_y = null;
 
 function reset() {
     paddles.map(function(paddle) {
@@ -42,9 +42,9 @@ function reset() {
     ball.y = Math.floor(game_md.height/2) - ball_md.radius; 
     ball.direction = Math.random()*Math.PI;
 
-    ML_ball_y = ball.y;
-    ML_ball_direction = ball.direction;
-    ML_prediction_y = 0;
+    ML_ball_y = null;
+    ML_ball_direction = null;
+    ML_prediction_y = null;
 
     /*
     ball.x = 100;
@@ -75,34 +75,40 @@ function reset() {
 
 
 function gameLoop(onEnemyHitPaddle, train) {
+
+    // move ball
     var dx = Math.cos(ball.direction)*ball_md.speed;
     var dy = Math.sin(ball.direction)*ball_md.speed;
     ball.x += dx;
     ball.y -= dy;
 
+    // move naive ai paddle
     var nai = paddles[0];
-    if (nai.y > ball.y+ball_md.radius * 2 && nai.y - game_md.paddle.speed >= 0) {
+    if (nai.y + game_md.paddle.height/2 > ball.y + ball_md.radius && nai.y - game_md.paddle.speed >= 0) {
         nai.y -= game_md.paddle.speed;
-    } else if (nai.y + game_md.paddle.height < ball.y && nai.y + game_md.paddle.height + game_md.paddle.speed < game_md.height) {
-        nai.y = Math.min(nai.y + game_md.paddle.speed, game_md.height-game_md.paddle.height-1);
+    } else if (nai.y + game_md.paddle.height/2 < ball.y + ball_md.radius && nai.y + game_md.paddle.height + game_md.paddle.speed < game_md.height) {
+        nai.y += game_md.paddle.speed;
     }
 
+    // move self learning paddle
     var mlai = paddles[1];
-    if (mlai.y > ML_prediction_y && mlai.y - game_md.paddle.speed >= 0) {
+    if (mlai.y + game_md.paddle.height/2 > ML_prediction_y && mlai.y - game_md.paddle.speed >= 0) {
         mlai.y -= game_md.paddle.speed;
-    } else if (mlai.y + game_md.paddle.height < ML_prediction_y && mlai.y + game_md.paddle.height + game_md.paddle.speed < game_md.height) {
-        mlai.y = Math.min(mlai.y + game_md.paddle.speed, game_md.height-game_md.paddle.height-1);
+    } else if (mlai.y + game_md.paddle.height/2 < ML_prediction_y && mlai.y + game_md.paddle.height + game_md.paddle.speed < game_md.height) {
+        mlai.y += game_md.paddle.speed;
     }
 
+    // check for collision of ball and paddle
     var hitPaddle = paddles.find(function(paddle) {
         var circle={x:ball.x+ball_md.radius, y:ball.y+ball_md.radius, r:ball_md.radius};
         var rect={x:paddle.x, y:paddle.y, w:game_md.paddle.width, h:game_md.paddle.height};
         return RectCircleColliding(circle, rect);
     });
     
+    // hit a paddle
     if (hitPaddle) {
         if (hitPaddle == nai) {
-            onEnemyHitPaddle(ball.y, ball.direction);
+            onEnemyHitPaddle();
         }
         reverseUntilNoCollision(hitPaddle);   
     }
@@ -113,7 +119,9 @@ function gameLoop(onEnemyHitPaddle, train) {
         paddles[1].points++;
         reset();
     } else if (ball.x >= game_md.width) {                                                                  // right exit
-        train();
+        if (ML_ball_y !== null && ML_ball_direction !== null && ML_prediction_y !== null) {
+            train();
+        }
         paddles[0].points++;
         reset();
     } else if (hitPaddle) {
@@ -171,4 +179,14 @@ function pointDistance(x1,y1,x2,y2) {
     var b = y1 - y2;
     var c = Math.sqrt( a*a + b*b );
     return c;
+}
+
+function normalizeDirection(rad) {
+    while (rad < 0) {
+        rad += Math.PI;
+    }
+    while (rad > Math.PI) {
+        rad -= Math.PI;
+    }
+    return rad;
 }
