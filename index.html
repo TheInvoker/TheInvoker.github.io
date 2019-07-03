@@ -31,7 +31,8 @@
         
             var buffer = [];
 
-            for(var i=0; i<navigator.hardwareConcurrency; i++) {
+            // navigator.hardwareConcurrency
+            for(var i=0; i<1; i++) {
                 var myWorker = new Worker('pong.js');
                 myWorker.onmessage = processKnowledge;
             }
@@ -43,9 +44,13 @@
             canvas.style.border = "1px solid black";
             var ctx = canvas.getContext("2d");
 
-			reset();
+            reset();
+            
+            ball.x = 60;
+            ball.y = 150; 
+            ball.direction = 2.5;
 			
-            setInterval(gLoop, 1);
+            setInterval(gLoop, 40);
 
             learn();
 
