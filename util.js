@@ -110,11 +110,10 @@ function gameLoop(onMoveToYou, onHitOwnPaddle, train) {
         }
 
         reverseUntilNoCollision(hitPaddle);   
-
-        /*
-        var distortion = Math.random() * Math.PI * 0.0523599;
-                              // corners
-        if (pointDistance(ball.x + ball_md.radius, ball.y + ball_md.radius, hitPaddle.x, hitPaddle.y) <= ball_md.radius+1) { 
+        
+        var distortion = Math.random() * Math.PI * 0.0523599; 
+                              
+        if (pointDistance(ball.x + ball_md.radius, ball.y + ball_md.radius, hitPaddle.x, hitPaddle.y) <= ball_md.radius+1) { // corners
             ball.direction += Math.PI + distortion;
         } else if (pointDistance(ball.x + ball_md.radius, ball.y + ball_md.radius, hitPaddle.x+game_md.paddle.width, hitPaddle.y) <= ball_md.radius+1) {
             ball.direction += Math.PI + distortion;
@@ -122,17 +121,19 @@ function gameLoop(onMoveToYou, onHitOwnPaddle, train) {
             ball.direction += Math.PI + distortion;
         } else if (pointDistance(ball.x + ball_md.radius, ball.y + ball_md.radius, hitPaddle.x+game_md.paddle.width, hitPaddle.y+game_md.paddle.height) <= ball_md.radius+1) {
             ball.direction += Math.PI + distortion;
-        } else if ((ball.y > hitPaddle.y + game_md.paddle.height) || (ball.y + ball_md.radius*2 < hitPaddle.y)) { // top/bottom of paddle 
+        } else if ((ball.y > hitPaddle.y + game_md.paddle.height) || (ball.y + ball_md.radius*2 < hitPaddle.y)) {            // top/bottom of paddle 
             ball.direction = 2*Math.PI - ball.direction;
-        } else {                                                                                                  // left/right of paddle
+        } else {                                                                                                             // left/right of paddle
             ball.direction = (Math.PI*2) - (ball.direction - Math.PI);
         }
-        */
         
-        var relativeIntersectY = (hitPaddle.y + (game_md.paddle.height/2)) - ball.y;
-        var normalizedRelativeIntersectionY = (relativeIntersectY/(game_md.paddle.height/2));
-        var bounceAngle = normalizedRelativeIntersectionY * (5*Math.PI / 12);
-        ball.direction = bounceAngle;
+        //var offset = ball.x < hitPaddle.x ? Math.PI : 0;
+        //var deg = radToDeg(ball.direction);
+        //var relativeIntersectY = (hitPaddle.y + (game_md.paddle.height/2)) - ball.y;
+        //var normalizedRelativeIntersectionY = (relativeIntersectY/(game_md.paddle.height/2));
+        //var bounceAngle = (normalizedRelativeIntersectionY * (5*Math.PI / 12));
+        //var deg2 = radToDeg(bounceAngle);
+        //ball.direction = bounceAngle;
     }
     
     if (ball.y < 0 || ball.y+ball_md.radius*2 >= game_md.height) {                                  // up/bottom wall
