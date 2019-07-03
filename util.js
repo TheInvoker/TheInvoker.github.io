@@ -134,12 +134,18 @@ function gameLoop(onEnemyHitPaddle, train) {
         //var bounceAngle = normalizedRelativeIntersectionY * (5*Math.PI / 12);
 
         //ball.direction = bounceAngle;
-    } else if (ball.y < 0 || ball.y+ball_md.radius*2 >= game_md.height) {                                         // up/bottom wall
+    }
+    
+    if (ball.y < 0 || ball.y+ball_md.radius*2 >= game_md.height) {                                         // up/bottom wall
         ball.direction = 2*Math.PI - ball.direction; 
-    } else if (ball.x+ball_md.radius*2 < 0) {                                                              // left exit
+    }
+    
+    if (ball.x+ball_md.radius*2 < 0) {                                                              // left exit
         paddles[1].points++;
         reset();
-    } else if (ball.x >= game_md.width) {                                                                  // right exit
+    }
+    
+    if (ball.x >= game_md.width) {                                                                  // right exit
         if (ML_ball_y !== null && ML_ball_direction !== null && ML_prediction_y !== null) {
             train();
         }

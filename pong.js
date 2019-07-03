@@ -1,4 +1,4 @@
-importScripts('util.1.js');
+importScripts('util.js');
 
 var buffer_xs = [];
 var buffer_ys = [];
@@ -15,7 +15,7 @@ function gLoop() {
     }, function() {
         buffer_xs.push([ML_ball_y/game_md.height, normalizeDirection(ML_ball_direction)/Math.PI]);
         buffer_ys.push(ball.y/game_md.height);
-        if (buffer_xs.length > 100) {
+        if (buffer_xs.length > 5) {
             postMessage([buffer_xs, buffer_ys]);
             buffer_xs = [];
             buffer_ys = [];
