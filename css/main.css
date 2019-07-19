@@ -2,4 +2,7 @@ body {
     background-color: black;
     color:white;
     font-family: 'Open Sans', sans-serif;
+    background-image: url("../img/green_sky_4-wallpaper-1920x1200.jpg");
+    background-size:100%;
+    background-repeat: no-repeat;
 }
