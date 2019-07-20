@@ -6,3 +6,10 @@ body {
     background-size:100%;
     background-repeat: no-repeat;
 }
+
+.gns-title {
+    font-size:30px;
+}
+.gns-center {
+    text-align:center;
+}
