@@ -1,15 +1,22 @@
+html, body {
+    height:100%;
+}
+
 body {
     background-color: black;
     color:white;
     font-family: 'Open Sans', sans-serif;
     background-image: url("../img/green_sky_4-wallpaper-1920x1200.jpg");
-    background-size:100%;
-    background-repeat: no-repeat;
+    background-size:100% 100vh;
+    background-attachment: fixed;
+    background-position: center;
+    margin:0;
 }
 
 .gns-title {
     font-size:30px;
 }
+
 .gns-center {
     text-align:center;
 }
