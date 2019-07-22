@@ -11,6 +11,8 @@ body {
     background-attachment: fixed;
     background-position: center;
     margin:0;
+    padding:1em;
+    box-sizing: border-box;
 }
 
 .gns-title {
