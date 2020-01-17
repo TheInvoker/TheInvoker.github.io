@@ -19,8 +19,9 @@ body {
     font-size:30px;
 }
 .gns-guitar-img {
-    opacity: 0.7;
-    width:300px;
+    opacity: 0.5;
+    width:80%;
+    max-width:300px;
     border-radius:20px;
     margin:20px;
 }
