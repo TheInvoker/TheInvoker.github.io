@@ -18,7 +18,12 @@ body {
 .gns-title {
     font-size:30px;
 }
-
+.gns-guitar-img {
+    opacity: 0.7;
+    width:300px;
+    margin:0 20px 20px 0;
+    border-radius:20px;
+}
 .gns-center {
     text-align:center;
 }
