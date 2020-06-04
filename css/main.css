@@ -28,3 +28,7 @@ body {
 .gns-center {
     text-align:center;
 }
+
+audio {
+    width:100%;
+}
