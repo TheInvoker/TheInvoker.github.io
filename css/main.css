@@ -29,7 +29,6 @@ body {
     text-align:center;
 }
 
-audio {
-    width:100%;
-    outline:none;
+iframe {
+    opacity:0.5;
 }
