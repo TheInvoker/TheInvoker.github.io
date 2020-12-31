@@ -42,13 +42,14 @@ function DD_COMPARE_TABLE(OPTIONS) {
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     `);
 
+    var tm = 0;
     setTimeout(() => {
         getConfig(async function(strings, access_token, data, category_data, meta_data, question_data) {
             await init(strings, access_token, data, category_data, meta_data, question_data);
         }, function(message) {
             alert(message);
         })
-    }, 3000);
+    }, tm);
     
 
     /**
