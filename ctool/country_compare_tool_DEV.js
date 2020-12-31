@@ -2,9 +2,7 @@ function DD_COMPARE_TABLE(OPTIONS) {
 
     var $ = jQuery;
 
-    //OPTIONS.config_url = OPTIONS.config_url.replace(/&amp;/g, "&");
-    //OPTIONS.admin_config_url = OPTIONS.admin_config_url.replace(/&amp;/g, "&");
-
+    /*
     jQuery.when(
         jQuery.getScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"),
         jQuery.getScript("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"),    
@@ -26,9 +24,9 @@ function DD_COMPARE_TABLE(OPTIONS) {
             });
         });
     });
-    
+    */
 
-    /*
+    
     $("head").append(`
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
@@ -51,7 +49,7 @@ function DD_COMPARE_TABLE(OPTIONS) {
             alert(message);
         })
     }, 3000);
-    */
+    
 
     /**
      * Admin architecture.
