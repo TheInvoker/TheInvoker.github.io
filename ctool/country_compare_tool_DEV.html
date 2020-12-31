@@ -4,7 +4,7 @@
         <!-- Key Contacts -->
         <v-container fluid v-if="keyContacts.length > 0" class="ddct-contacts pa-0">
             <div class="title">{{strings.label_key_contacts}}</div>
-            <v-card v-for="contact in keyContacts" tile class="d-inline-block px-2 me-2 mb-2 ddct-contact text-no-wrap">
+            <v-card v-for="contact in keyContacts" class="d-inline-block px-2 me-2 mb-2 ddct-contact text-no-wrap">
                 <v-row dense>
                     <v-col>
                         <img :src="contact.image"/>

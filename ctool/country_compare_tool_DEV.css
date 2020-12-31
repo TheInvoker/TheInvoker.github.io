@@ -18,6 +18,7 @@
 #ddct_region_compare .ddct-contacts .ddct-contact img {
   width: 64px;
   height: 64px;
+  border-radius: 50%;
 }
 
 #ddct_region_compare .ddct-contacts .ddct-contact .ddct-contact-details {
