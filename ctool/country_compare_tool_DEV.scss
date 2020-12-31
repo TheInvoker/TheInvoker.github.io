@@ -18,6 +18,7 @@ $odd_color : rgba(244,244,244,1);
     // contact card
     .ddct-contacts {
         color:$primary_color;
+        gap:10px;
         .ddct-contact {
             img {
                 width:64px;
