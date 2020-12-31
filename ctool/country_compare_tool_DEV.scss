@@ -1,0 +1,141 @@
+$primary_color : #6E2D91;
+$secondary_color : #bdbdbd;
+$even_color : rgba(252,252,252,1);
+$odd_color : rgba(244,244,244,1);
+
+.z-index-9999 {
+    z-index:9999 !important;
+}
+.position-fixed {
+    position:fixed !important;
+}
+
+// app scope
+#ddct_region_compare {
+
+    background:transparent;
+
+    // contact card
+    .ddct-contacts {
+        color:$primary_color;
+        .ddct-contact {
+            img {
+                width:64px;
+                height:64px;
+            }
+            .ddct-contact-details {
+                color:$primary_color;
+                a {
+                    text-decoration: none;
+                    color:$primary_color;
+                }
+            }
+        }
+    }
+
+    // wrap the PK values inline
+    .ddct-four-column {
+        .v-treeview-node.v-treeview-node--leaf {
+            float:left;
+            width:228px;
+        }
+    }
+
+    /* table with fixed header/left column, sticky sections and sub sections */
+    .ddct_table_wrapper {
+        position:relative;
+        -webkit-print-color-adjust: exact;
+    
+        > div > table {
+            border-collapse:collapse;
+            min-width:100%;
+        }
+        .ddct_table_cell {
+            border:1px solid #dddddd;		
+            vertical-align: top;
+            min-width:180px;
+            &:before {
+                content:'';
+                width:calc(100% + 2px);
+                height:calc(100% + 2px);
+                position:absolute;
+                left:-1px;
+                top:-1px;
+                border:1px solid #dddddd;
+                pointer-events: none;
+            }
+            .ddct_read_more_closed {
+                .ddct_read_more_content_wrapper {
+                    max-height:150px;
+                    position:relative;
+                    overflow:hidden;
+                    .ddct_read_more_content_overlay {
+                        position:absolute;
+                        left:0;
+                        top:0;
+                        width:100%;
+                        height:100%;
+                    }
+                }
+            }
+            a {
+                color:$primary_color;
+            }
+        }
+        .ddct_table_category {
+            background-color:$primary_color;
+        }
+        .ddct_table_sub_category {
+            background-color:$secondary_color;
+        }
+        .ddct_table_even_row {
+            background-color: $even_color;
+            .ddct_read_more_closed .ddct_read_more_content_overlay {
+                background: linear-gradient(0deg, $even_color 0%, $even_color 10%, rgba(0,0,0,0) 100%);
+            }
+        }
+        .ddct_table_odd_row {
+            background-color: $odd_color;
+            .ddct_read_more_closed .ddct_read_more_content_overlay {
+                background: linear-gradient(0deg, $odd_color 0%, $odd_color 10%, rgba(0,0,0,0) 100%);
+            }
+        }
+        .ddct_first_column {
+            width:200px;
+        }
+        @media print {
+            .ddct_first_column {
+                width:135px;
+            }
+            /* adjust font size */
+            &, .ddct_table_cell span {
+                font-size:10px !important;
+                line-height:13px;
+            }
+        }
+        @media screen {
+            .ddct_table_cell {
+                position:sticky;
+            }
+            .ddct_table_sticky .ddct_first_column {
+                left:0;
+            }
+        }
+    }
+
+    .ddct-print-disclaimer {
+        position:fixed;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+        background-color:rgba(0,0,0,0.6);
+    }
+
+    @media print {
+        width : calc(100% - 1px);
+        .display-none-print {
+            display:none;
+        }
+    }
+}
