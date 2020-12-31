@@ -13,20 +13,28 @@
 
 #ddct_region_compare .ddct-contacts {
   color: #6E2D91;
+}
+
+#ddct_region_compare .ddct-contacts .ddct-contact-container {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   gap: 10px;
 }
 
-#ddct_region_compare .ddct-contacts .ddct-contact img {
+#ddct_region_compare .ddct-contacts .ddct-contact-container .ddct-contact img {
   width: 64px;
   height: 64px;
   border-radius: 50%;
 }
 
-#ddct_region_compare .ddct-contacts .ddct-contact .ddct-contact-details {
+#ddct_region_compare .ddct-contacts .ddct-contact-container .ddct-contact .ddct-contact-details {
   color: #6E2D91;
 }
 
-#ddct_region_compare .ddct-contacts .ddct-contact .ddct-contact-details a {
+#ddct_region_compare .ddct-contacts .ddct-contact-container .ddct-contact .ddct-contact-details a {
   text-decoration: none;
   color: #6E2D91;
 }

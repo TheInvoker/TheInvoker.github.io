@@ -18,18 +18,22 @@ $odd_color : rgba(244,244,244,1);
     // contact card
     .ddct-contacts {
         color:$primary_color;
-        gap:10px;
-        .ddct-contact {
-            img {
-                width:64px;
-                height:64px;
-                border-radius:50%;
-            }
-            .ddct-contact-details {
-                color:$primary_color;
-                a {
-                    text-decoration: none;
+        .ddct-contact-container {
+            display:inline-flex;
+            flex-wrap: wrap;
+            gap:10px;
+            .ddct-contact {
+                img {
+                    width:64px;
+                    height:64px;
+                    border-radius:50%;
+                }
+                .ddct-contact-details {
                     color:$primary_color;
+                    a {
+                        text-decoration: none;
+                        color:$primary_color;
+                    }
                 }
             }
         }

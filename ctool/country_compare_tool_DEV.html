@@ -4,18 +4,20 @@
         <!-- Key Contacts -->
         <v-container fluid v-if="keyContacts.length > 0" class="ddct-contacts pa-0">
             <div class="title">{{strings.label_key_contacts}}</div>
-            <v-card v-for="contact in keyContacts" outlined class="d-inline-block px-2 pt-1 ddct-contact text-no-wrap">
-                <v-row dense>
-                    <v-col>
-                        <img :src="contact.image"/>
-                    </v-col>
-                    <v-col class="ddct-contact-details">
-                        <div class="font-weight-bold">{{contact.firstname}} {{contact.lastname}}</div>
-                        <div class="body-2">{{contact.jobtitle}}</div>
-                        <div class="body-2"><a :href="'mailto:' + contact.email">{{contact.email}}</a></div>
-                    </v-col>
-                </v-row>  
-            </v-card>
+            <div class="ddct-contact-container">
+                <v-card v-for="contact in keyContacts" outlined class="px-2 pt-1 ddct-contact text-no-wrap">
+                    <v-row dense>
+                        <v-col>
+                            <img :src="contact.image"/>
+                        </v-col>
+                        <v-col class="ddct-contact-details">
+                            <div class="font-weight-bold">{{contact.firstname}} {{contact.lastname}}</div>
+                            <div class="body-2">{{contact.jobtitle}}</div>
+                            <div class="body-2"><a :href="'mailto:' + contact.email">{{contact.email}}</a></div>
+                        </v-col>
+                    </v-row>  
+                </v-card>
+            </div>
         </v-container>
 
         <!-- PK Tree -->
