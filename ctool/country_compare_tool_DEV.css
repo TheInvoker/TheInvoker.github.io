@@ -21,7 +21,7 @@
   display: inline-flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 10px;
+  gap: 4px;
 }
 
 #ddct_region_compare .ddct-contacts .ddct-contact-container .ddct-contact img {
