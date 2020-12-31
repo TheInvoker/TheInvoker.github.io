@@ -16,8 +16,8 @@ function DD_COMPARE_TABLE(OPTIONS) {
             $.getScript("https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.min.js"),
             $.getScript("/dentons/flag/flag_54p48o48q51n54o52k48l.action")  // xlsx polyfill
         ).done(function() {
-            getConfig(async function(strings, access_token, data, category_data, meta_data, question_data) {
-                await init(strings, access_token, data, category_data, meta_data, question_data);
+            getConfig(async function(res) {
+                await init(...res);
             }, function(message) {
                 alert(message);
             });
@@ -336,9 +336,10 @@ function DD_COMPARE_TABLE(OPTIONS) {
             dataType: "xml",
             success : function(data) {
                 var strings = DD_UTILS.getStringsObject(data);
-                DD_UTILS.OAuth2Flow(OPTIONS, strings, function(access_token) {
+                DD_UTILS.OAuth2Flow(OPTIONS, strings, async function(access_token) {
                     try {
-                        preInitApp(strings, access_token, success);
+                        const res = await preInitApp(strings, access_token);
+                        success(res);
                     } catch (err) {
                         fail(err);
                     }
@@ -356,9 +357,8 @@ function DD_COMPARE_TABLE(OPTIONS) {
      * Get resources.
      * @param {*} strings 
      * @param {*} access_token 
-     * @param {*} callback 
      */
-    function preInitApp(strings, access_token, callback) {
+    async function preInitApp(strings, access_token) {
 
         var headers = {
             //'Accept': 'application/json',
@@ -376,9 +376,9 @@ function DD_COMPARE_TABLE(OPTIONS) {
         const res = await Promise.all(arr.map(async url => await (await fetch(url, {headers})).text()));
 
         if (strings.config_use_admin_architecture === "1") {
-            callback(strings, access_token, res[2], res[0], res[1], undefined);
+            return [strings, access_token, res[2], res[0], res[1], undefined];
         } else {
-            callback(strings, access_token, undefined, res[0], res[1], res[2]);
+            return [strings, access_token, undefined, res[0], res[1], res[2]];
         }
     }
 
