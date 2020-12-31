@@ -8,6 +8,14 @@
 
 #ddct_region_compare {
   background: transparent;
+  /*
+    .ddct-four-column {
+        .v-treeview-node.v-treeview-node--leaf {
+            float:left;
+            width:228px;
+        }
+    }
+    */
   /* table with fixed header/left column, sticky sections and sub sections */
 }
 
@@ -39,14 +47,8 @@
   color: #6E2D91;
 }
 
-#ddct_region_compare .ddct-four-column .v-treeview-node.v-treeview-node--leaf {
-  float: left;
-  width: 228px;
-}
-
 #ddct_region_compare .ddct_table_wrapper {
   position: relative;
-  -webkit-print-color-adjust: exact;
 }
 
 #ddct_region_compare .ddct_table_wrapper > div > table {

@@ -40,17 +40,19 @@ $odd_color : rgba(244,244,244,1);
     }
 
     // wrap the PK values inline
+    /*
     .ddct-four-column {
         .v-treeview-node.v-treeview-node--leaf {
             float:left;
             width:228px;
         }
     }
+    */
 
     /* table with fixed header/left column, sticky sections and sub sections */
     .ddct_table_wrapper {
         position:relative;
-        -webkit-print-color-adjust: exact;
+        //-webkit-print-color-adjust: exact;
     
         > div > table {
             border-collapse:collapse;
