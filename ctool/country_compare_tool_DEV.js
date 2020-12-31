@@ -2,20 +2,19 @@ function DD_COMPARE_TABLE(OPTIONS) {
 
     var $ = jQuery;
 
-    /*
-    jQuery.when(
-        jQuery.getScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"),
-        jQuery.getScript("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"),    
-        jQuery.getScript("https://cdn.jsdelivr.net/npm/bowser@2.7.0/es5.min.js"),    
-        jQuery.getScript("https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"), 
-        //jQuery.getScript("https://cdn.jsdelivr.net/npm/xlsx@0.15.6/dist/xlsx.full.min.js"),    // new version of xlsx.core.js plugin which does not support styling         
-        jQuery.getScript("/dentons/flag/flag_54m57l48n51j56q53l56p.action"),  // old version of xlsx.core.js plugin which still supports styling           
+    $.when(
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"),
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"),    
+        $.getScript("https://cdn.jsdelivr.net/npm/bowser@2.7.0/es5.min.js"),    
+        $.getScript("https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"), 
+        //$.getScript("https://cdn.jsdelivr.net/npm/xlsx@0.15.6/dist/xlsx.full.min.js"),    // new version of xlsx.core.js plugin which does not support styling         
+        $.getScript("/dentons/flag/flag_54m57l48n51j56q53l56p.action"),  // old version of xlsx.core.js plugin which still supports styling           
         DD_UTILS.getStyle("https://fonts.googleapis.com/icon?family=Material+Icons")
     ).done(function() {
-        jQuery.when(
-            jQuery.getScript("https://cdn.jsdelivr.net/npm/vue-router@3.4.9/dist/vue-router.min.js"),
-            jQuery.getScript("https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.min.js"),
-            jQuery.getScript("/dentons/flag/flag_54p48o48q51n54o52k48l.action")  // xlsx polyfill
+        $.when(
+            $.getScript("https://cdn.jsdelivr.net/npm/vue-router@3.4.9/dist/vue-router.min.js"),
+            $.getScript("https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.min.js"),
+            $.getScript("/dentons/flag/flag_54p48o48q51n54o52k48l.action")  // xlsx polyfill
         ).done(function() {
             getConfig(async function(strings, access_token, data, category_data, meta_data, question_data) {
                 await init(strings, access_token, data, category_data, meta_data, question_data);
@@ -24,33 +23,6 @@ function DD_COMPARE_TABLE(OPTIONS) {
             });
         });
     });
-    */
-
-    
-    $("head").append(`
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bowser@2.7.0/es5.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
-        <!--<script src="https://cdn.jsdelivr.net/npm/xlsx@0.15.6/dist/xlsx.full.min.js"></script>--> <!--new version of xlsx.core.js plugin which does not support styling-->  
-        <script src="/dentons/flag/flag_54m57l48n51j56q53l56p.action"></script> <!--old version of xlsx.core.js plugin which still supports styling-->      
-
-        <script src="https://cdn.jsdelivr.net/npm/vue-router@3.4.9/dist/vue-router.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.min.js"></script>
-        <script src="/dentons/flag/flag_54p48o48q51n54o52k48l.action"></script> <!--xlsx polyfill-->
-
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-    `);
-
-    var tm = 0;
-    setTimeout(() => {
-        getConfig(async function(strings, access_token, data, category_data, meta_data, question_data) {
-            await init(strings, access_token, data, category_data, meta_data, question_data);
-        }, function(message) {
-            alert(message);
-        })
-    }, tm);
-    
 
     /**
      * Admin architecture.
