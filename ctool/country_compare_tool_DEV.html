@@ -11,9 +11,9 @@
                             <img :src="contact.image"/>
                         </v-col>
                         <v-col class="ddct-contact-details">
-                            <div class="font-weight-bold text-subtitle-1">{{contact.firstname}} {{contact.lastname}}</div>
-                            <div class="text-subtitle-2">{{contact.jobtitle}}</div>
-                            <div class="text-subtitle-2"><a :href="'mailto:' + contact.email">{{contact.email}}</a></div>
+                            <div class="font-weight-bold text-body-1">{{contact.firstname}} {{contact.lastname}}</div>
+                            <div class="text-caption">{{contact.jobtitle}}</div>
+                            <div class="text-caption"><a :href="'mailto:' + contact.email">{{contact.email}}</a></div>
                         </v-col>
                     </v-row>  
                 </v-card>
