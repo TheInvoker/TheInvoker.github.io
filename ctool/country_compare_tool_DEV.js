@@ -1098,7 +1098,7 @@ function DD_COMPARE_TABLE(OPTIONS) {
             <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vuetify@2.4.0/dist/vuetify.min.css"/>   
             <link rel="stylesheet" type="text/css" href="/dentons/flag/flag_8051.action"/>   
-            <link rel="stylesheet" type="text/css" href="/dentons/flag/flag_51n56q49n50i53p56q57j.action"/>   
+            <link rel="stylesheet" type="text/css" href="https://www.greennightsky.com/ctool/country_compare_tool_DEV.css"/>   
             <div id="app">
                 <router-view></router-view>
             </div>
