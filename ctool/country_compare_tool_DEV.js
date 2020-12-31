@@ -562,7 +562,7 @@ function DD_COMPARE_TABLE(OPTIONS) {
         });
     
         var RC = Vue.component('region-compare', {
-            template: await (await fetch("https://cdn.jsdelivr.net/gh/TheInvoker/D.DD.ComplianceTool/country_compare_tool_DEV.html")).text(),
+            template: await (await fetch("https://www.greennightsky.com/ctool/country_compare_tool_DEV.html")).text(),
             data: function() {
                 return {
                     color : this.$vuetify.theme.themes.light.primary,
