@@ -44,13 +44,13 @@ function DD_COMPARE_TABLE(OPTIONS) {
     });
     */
 
-    window.addEventListener('load', (event) => {
+    //window.addEventListener('load', (event) => {
         getConfig(async function(strings, access_token, data, category_data, meta_data, question_data) {
             await init(strings, access_token, data, category_data, meta_data, question_data);
         }, function(message) {
             alert(message);
         });
-    });
+    //});
 
     /**
      * Admin architecture.
