@@ -337,7 +337,11 @@ function DD_COMPARE_TABLE(OPTIONS) {
             success : function(data) {
                 var strings = DD_UTILS.getStringsObject(data);
                 DD_UTILS.OAuth2Flow(OPTIONS, strings, function(access_token) {
-                    preInitApp(strings, access_token, success, fail);
+                    try {
+                        preInitApp(strings, access_token, success);
+                    } catch (err) {
+                        fail(err);
+                    }
                 }, function(message) {
                     fail(message);
                 }, true);
@@ -352,76 +356,29 @@ function DD_COMPARE_TABLE(OPTIONS) {
      * Get resources.
      * @param {*} strings 
      * @param {*} access_token 
-     * @param {*} success 
-     * @param {*} fail 
+     * @param {*} callback 
      */
-    function preInitApp(strings, access_token, success, fail) {
+    function preInitApp(strings, access_token, callback) {
 
         var headers = {
             //'Accept': 'application/json',
             'Authorization':'Bearer ' + access_token
         };
 
-        var count = 0;
-        var total = 3;
-
-        var data = null, category = null, metadata = null, question = null;
-        function checkSuccess() {
-            count += 1;
-            if (count === total) {
-                success(strings, access_token, data, category, metadata, question);
-            }
-        }
-
-        // this is not needed if set to non admin achitecture
+        var arr = ["/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_category + "/items?sheetviewid=" + strings.isheet_view_id_category + "&limit=9999",
+                   "/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_metadata + "/items?sheetviewid=" + strings.isheet_view_id_metadata + "&limit=9999"];
         if (strings.config_use_admin_architecture === "1") {
-            $.ajax({
-                url: "/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_data + "/items?sheetviewid=" + strings.isheet_view_id_data + "&limit=9999",
-                headers: headers,
-                success : function(_data) {
-                    data = _data;
-                    checkSuccess();
-                },
-                error : function (jqXHR, textStatus, errorThrown) { 
-                    fail(errorThrown + " " + strings.error_invalid_data_source);
-                }
-            });
+            arr.push("/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_data + "/items?sheetviewid=" + strings.isheet_view_id_data + "&limit=9999");
+        } else {
+            arr.push("/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_question + "/items?sheetviewid=" + strings.isheet_view_id_question + "&limit=9999");
         }
-        $.ajax({
-            url: "/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_category + "/items?sheetviewid=" + strings.isheet_view_id_category + "&limit=9999",
-            headers: headers,
-            success : function(data) {
-                category = data;
-                checkSuccess();
-            },
-            error : function (jqXHR, textStatus, errorThrown) { 
-                fail(errorThrown + " " + strings.error_invalid_category_source);
-            }
-        });
-        $.ajax({
-            url: "/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_metadata + "/items?sheetviewid=" + strings.isheet_view_id_metadata + "&limit=9999",
-            headers: headers,
-            success : function(data) {
-                metadata = data;
-                checkSuccess();
-            },
-            error : function (jqXHR, textStatus, errorThrown) { 
-                fail(errorThrown + " " + strings.error_invalid_metadata_source);
-            }
-        });
-        // this is not needed if set to admin achitecture
-        if (strings.config_use_admin_architecture !== "1") {
-            $.ajax({
-                url: "/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_question + "/items?sheetviewid=" + strings.isheet_view_id_question + "&limit=9999",
-                headers: headers,
-                success : function(data) {
-                    question = data;
-                    checkSuccess();
-                },
-                error : function (jqXHR, textStatus, errorThrown) { 
-                    fail(errorThrown + " " + strings.error_invalid_question_source);
-                }
-            });
+
+        const res = await Promise.all(arr.map(async url => await (await fetch(url, {headers})).text()));
+
+        if (strings.config_use_admin_architecture === "1") {
+            callback(strings, access_token, res[2], res[0], res[1], undefined);
+        } else {
+            callback(strings, access_token, undefined, res[0], res[1], res[2]);
         }
     }
 
