@@ -367,6 +367,7 @@ function DD_COMPARE_TABLE(OPTIONS) {
 
         var arr = ["/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_category + "/items?sheetviewid=" + strings.isheet_view_id_category + "&limit=9999",
                    "/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_metadata + "/items?sheetviewid=" + strings.isheet_view_id_metadata + "&limit=9999"];
+        
         if (strings.config_use_admin_architecture === "1") {
             arr.push("/" + DD_UTILS.getInstanceName() + "/api/3/isheet/" + strings.isheet_id_data + "/items?sheetviewid=" + strings.isheet_view_id_data + "&limit=9999");
         } else {
