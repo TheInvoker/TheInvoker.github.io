@@ -331,26 +331,23 @@ function DD_COMPARE_TABLE(OPTIONS) {
      * @param {*} fail 
      */
     function getConfig(success, fail) {
-        $.ajax({
-            url: OPTIONS.config_url, 
-            dataType: "xml",
-            success : function(data) {
-                var strings = DD_UTILS.getStringsObject(data);
-                DD_UTILS.OAuth2Flow(OPTIONS, strings, async function(access_token) {
-                    try {
-                        const res = await preInitApp(strings, access_token);
-                        success(res);
-                    } catch (err) {
-                        fail(err);
-                    }
-                }, function(message) {
-                    fail(message);
-                }, true);
-            }, 
-            error : function(jqXHR, textStatus, errorThrown) {
-                fail(errorThrown);
-            }
-        });
+        fetch(OPTIONS.config_url)
+        .then(response => response.text())
+        .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+        .then(data => {
+            var strings = DD_UTILS.getStringsObject(data);
+            DD_UTILS.OAuth2Flow(OPTIONS, strings, async function(access_token) {
+                try {
+                    const res = await preInitApp(strings, access_token);
+                    success(res);
+                } catch (err) {
+                    fail(err);
+                }
+            }, function(message) {
+                fail(message);
+            }, true);
+        })
+        .catch(fail);
     }
 
     /**
