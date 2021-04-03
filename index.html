@@ -3,29 +3,79 @@
     <head>
         <meta charset="utf-8">
         <meta name="robots" content="noindex">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-        <title>Green Night Sky</title>
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
         <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+        <title>Green Night Sky</title>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="css/main.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.4.9/dist/vuetify.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.4.9/dist/vuetify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <link rel="manifest" href="site.webmanifest">
-		<script src="js/main.js"></script>
     </head>
     <body>
-        <div class="gns-title gns-center">Green Night Sky</div>
-        <div align="center">
-            <img src="img/istockphoto-1132261969-612x612.jpg" class="gns-guitar-img"/>
+        <div id="app">
+            <v-app>
+                <v-app-bar app color="#232323" dense dark>
+                    <v-img class="mx-2" src="/favicon/android-chrome-192x192.png" max-height="40" max-width="40" contain></v-img>
+                    <v-toolbar-title>Green Night Sky</v-toolbar-title>
+                </v-app-bar>
+                <v-main>
+                    <v-img height="300" width="100%" src="img/green_sky_4-wallpaper-1920x1200.jpg"></v-img>
+                    <v-container fluid>
+                        <v-row>
+                            <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12">
+                                <p>
+                                    I am new to creating music on guitar. Check out my music below.
+                                </p>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12">
+                                <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay"
+                                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1069791148&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                                <!--
+                                <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+                                    <a href="https://soundcloud.com/r-d-212849363" title="R D" target="_blank"
+                                        style="color: #cccccc; text-decoration: none;">R D</a> · <a
+                                        href="https://soundcloud.com/r-d-212849363/sets/guitar" title="Guitar" target="_blank"
+                                        style="color: #cccccc; text-decoration: none;">Guitar</a>
+                                </div>
+                                -->
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-main>
+            </v-app>
         </div>
-        <div> 
-            <p>
-                I am new to creating music on guitar. Check out my music below.
-            </p>
-        </div>
-        <div>  
-            <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1069791148&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/r-d-212849363" title="R D" target="_blank" style="color: #cccccc; text-decoration: none;">R D</a> · <a href="https://soundcloud.com/r-d-212849363/sets/guitar" title="Guitar" target="_blank" style="color: #cccccc; text-decoration: none;">Guitar</a></div>
-        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                vuetify : new Vuetify({
+                    theme: {
+                        dark: false
+                    },
+                    icons : {
+                        iconfont : 'md'
+                    }
+                }),
+                data: () => {
+                    return {
+                        
+                    };
+                },
+                mounted : function() {
+
+                },
+                methods : {
+                    
+                }
+            });
+        </script>
     </body>
 </html>
